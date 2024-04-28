@@ -9,5 +9,13 @@ package clases;
  * @author anita
  */
 public class Avion {
-    
+    public String Codigo;
+    public int CapacidadMax;
+    public String NomAerolinea;
+
+    public Avion(String Codigo, int CapacidadMax, String NomAerolinea) {
+        this.Codigo = Codigo;
+        this.CapacidadMax = CapacidadMax;
+        this.NomAerolinea = NomAerolinea;
+    }
 }

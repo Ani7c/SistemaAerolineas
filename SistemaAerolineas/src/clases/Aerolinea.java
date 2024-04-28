@@ -9,5 +9,13 @@ package clases;
  * @author anita
  */
 public class Aerolinea {
-    
+    public String Nombre;
+    public String Pais;
+    public int CantMaxAviones;
+
+    public Aerolinea(String Nombre, String Pais, int CantMaxAviones) {
+        this.Nombre = Nombre;
+        this.Pais = Pais;
+        this.CantMaxAviones = CantMaxAviones;
+    }
 }
