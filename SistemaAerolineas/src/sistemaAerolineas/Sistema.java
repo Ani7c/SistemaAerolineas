@@ -2,14 +2,18 @@ package sistemaAerolineas;
 
 public class Sistema implements IObligatorio {
 
+    //public ListaN<Aerolienas> listaAerolineas;
+
     @Override
     public Retorno crearSistemaDeGestion() {
+        Retorno ret;
+
         return Retorno.noImplementada();
     }
 
     @Override
     public Retorno crearAerolinea(String nombre, String pais, int cantMaxAviones) {
-      return Retorno.noImplementada();
+        return Retorno.noImplementada();
     }
 
     @Override
