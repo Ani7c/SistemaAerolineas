@@ -1,28 +1,66 @@
 package sistemaAerolineas;
 
+import tads.Lista;
+import clases.Aerolinea;
+import clases.Avion;
+import clases.Cliente;
+import clases.Pasaje;
+import clases.Vuelo;
+
 public class Sistema implements IObligatorio {
 
-    //public ListaN<Aerolienas> listaAerolineas;
-
+    private Lista<Aerolinea> listaAerolineas;
+    private Lista<Avion> listaAviones;
+    private Lista<Cliente> listaClientes;
+    private Lista<Pasaje> listaPasajes;
+    private Lista<Vuelo> listaVuelos;
+    
     @Override
     public Retorno crearSistemaDeGestion() {
-        Retorno ret;
-
-        return Retorno.noImplementada();
+        listaAerolineas = new Lista();
+        listaAviones = new Lista();
+        listaClientes = new Lista();
+        listaPasajes = new Lista();
+        listaVuelos  = new Lista();
+        return Retorno.ok();
     }
 
     @Override
     public Retorno crearAerolinea(String nombre, String pais, int cantMaxAviones) {
-        return Retorno.noImplementada();
+        Aerolinea aerolinea = new Aerolinea(nombre, pais, cantMaxAviones);
+        
+        if (cantMaxAviones <= 0) {
+            return Retorno.error2();
+        }
+        if (listaAerolineas.existeElemento(aerolinea)) {
+            return Retorno.error1();
+        }
+        listaAerolineas.agregarInicio(aerolinea);
+        return Retorno.ok();
     }
 
     @Override
     public Retorno eliminarAerolinea(String nombre) {
+        //busco la aerolinea
+        Aerolinea aBorrar = listaAerolineas.obtenerElemento(nombre);
+
         return Retorno.noImplementada();
     }
 
     @Override
     public Retorno registrarAvion(String codigo, int capacidadMax, String nomAerolinea) {
+        Avion avion = new Avion(codigo, capacidadMax, nomAerolinea);
+        
+        //En caso de que ya exista dicho código de avión en la aerolínea.
+        if (listaAviones.existeElemento(avion)) {
+            return Retorno.error1();
+        }
+        //Si la capacidad máxima es < que 9 pasajeros o no es múltiplo de 3.
+        if (capacidadMax < 9 || (capacidadMax % 3) != 0) {
+            return Retorno.error2();
+        }
+        //Si no existe la aerolínea
+
         return Retorno.noImplementada();
     }
 

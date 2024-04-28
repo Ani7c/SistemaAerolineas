@@ -19,7 +19,6 @@ public class Vuelo {
     public int CantPasajesEcon;
     public int CantPasajesPClase;
     
-    
     public Vuelo(String CodigoVuelo, String Aerolinea, String CodAvion, String PaisDestino, int Dia, int Mes, int Año, int CantPasajesEcon, int CantPasajesPClase) {
         this.CodigoVuelo = CodigoVuelo;
         this.Aerolinea = Aerolinea;

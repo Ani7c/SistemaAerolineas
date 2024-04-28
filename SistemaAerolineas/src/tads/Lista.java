@@ -1,8 +1,5 @@
 package tads;
 
-//import classes.Medico;
-//import classes.Paciente;
-
 public class Lista<T extends Comparable<T>> implements ILista<T> {
 
     private Nodo<T> inicio;
