@@ -10,13 +10,42 @@ package clases;
  */
 public class Cliente {
 
-    public String Pasaporte;
-    public String Nombre;
-    public int Edad;
+    private String Pasaporte;
+    private String Nombre;
+    private int Edad;
 
     public Cliente(String Pasaporte, String Nombre, int Edad) {
         this.Pasaporte = Pasaporte;
         this.Nombre = Nombre;
         this.Edad = Edad;
+    }
+    
+    public String getPasaporte() {
+        return Pasaporte;
+    }
+    
+    public String getNombre() {
+        return Nombre;
+    }
+    
+    public int getEdad() {
+        return Edad;
+    }
+
+    public void setNombre(String nombre) {
+        this.Nombre = nombre;
+    }
+    
+    public void setPasaporte(String pasaporte) {
+        this.Pasaporte = pasaporte;
+    }
+    
+    public void setEdad(int edad) {
+        this.Edad = edad;
+    }
+    
+    @Override
+    public boolean equals(Object obj) {
+        return this.getPasaporte().equals(((Cliente) obj).getPasaporte());
     }
 }

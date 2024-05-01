@@ -9,13 +9,43 @@ package clases;
  * @author anita
  */
 public class Avion {
-    public String Codigo;
-    public int CapacidadMax;
-    public String NomAerolinea;
+    private String Codigo;
+    private int CapacidadMax;
+    private String NomAerolinea;
 
     public Avion(String Codigo, int CapacidadMax, String NomAerolinea) {
         this.Codigo = Codigo;
         this.CapacidadMax = CapacidadMax;
         this.NomAerolinea = NomAerolinea;
     }
+    
+    public String getCodigo() {
+        return Codigo;
+    }
+    
+    public int getCapacidadMax() {
+        return CapacidadMax;
+    }
+    
+    public String getNomAerolinea() {
+        return NomAerolinea;
+    }
+    
+    public void setCodigo(String codigo) {
+        this.Codigo = codigo;
+    }
+    
+    public void setCapacidadMax(int capacidadMax) {
+        this.CapacidadMax = capacidadMax;
+    }
+    
+    public void setNomAerolinea(String nomAerolinea) {
+        this.NomAerolinea = nomAerolinea;
+    }
+    
+    @Override
+    public boolean equals(Object obj) {
+        return this.getCodigo().equals(((Avion) obj).getCodigo());
+    }
+    
 }
