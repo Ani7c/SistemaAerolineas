@@ -41,9 +41,11 @@ public class Sistema implements IObligatorio {
 
     @Override
     public Retorno eliminarAerolinea(String nombre) {
+        Aerolinea aBorrar = new Aerolinea();
+        aBorrar.setNombre(nombre);
+        
         //En caso de que no exista una aerolínea con dicho nombre
-        Aerolinea aBorrar = listaAerolineas.obtenerElemento(nombre);
-        if(aBorrar == null) {
+        if(listaAerolineas.obtenerElemento(aBorrar) == null) {
             return Retorno.error1();
         }
         //Si tiene aviones registrados
@@ -66,18 +68,25 @@ public class Sistema implements IObligatorio {
         if (capacidadMax < 9 || (capacidadMax % 3) != 0) {
             return Retorno.error2();
         }
+        Aerolinea aBuscar = new Aerolinea();
+        aBuscar.setNombre(nomAerolinea);
+        Aerolinea aerolinea = listaAerolineas.obtenerElemento(aBuscar);
+        
         //Si no existe la aerolínea
-        if(!listaAerolineas.existeElemento(nomAerolinea)) {
+        if(aerolinea == null) {
             return Retorno.error3();
         }
         
-        //buscar aerolinea para agragarle el avion a la lista de aviones
-        //agregr el avion a la lista de aviones del sistema
-        return Retorno.noImplementada();
+        aerolinea.setAviones(avion);
+        listaAviones.agregarInicio(avion);
+        
+        return Retorno.ok();
     }
 
     @Override
     public Retorno eliminarAvion(String nomAerolinea, String codAvion) {
+        Avion aBorrar = new Avion();
+        
         //En caso de que no exista la aerolínea. 
         if(!listaAerolineas.existeElemento(nomAerolinea)) {
             return Retorno.error1();

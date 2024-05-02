@@ -16,6 +16,8 @@ public class Aerolinea {
     private int CantMaxAviones;
     private Lista<Avion> listaAviones;
     
+    public Aerolinea(){};
+    
     public Aerolinea(String Nombre, String Pais, int CantMaxAviones) {
         this.Nombre = Nombre;
         this.Pais = Pais;
@@ -51,8 +53,8 @@ public class Aerolinea {
         return listaAviones;
     }
     
-    public void setAviones(Lista<Avion> listaAviones) {
-        this.listaAviones = listaAviones;
+    public void setAviones(Avion avion) {
+        this.listaAviones.agregarInicio(avion);
     }
     
     @Override

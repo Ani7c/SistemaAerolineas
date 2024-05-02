@@ -12,6 +12,8 @@ public class Avion {
     private String Codigo;
     private int CapacidadMax;
     private String NomAerolinea;
+    
+    public Avion(){};
 
     public Avion(String Codigo, int CapacidadMax, String NomAerolinea) {
         this.Codigo = Codigo;
