@@ -10,7 +10,7 @@ import tads.Lista;
  *
  * @author anita
  */
-public class Aerolinea {
+public class Aerolinea implements Comparable<Aerolinea>{
     private String Nombre;
     private String Pais;
     private int CantMaxAviones;
@@ -60,5 +60,10 @@ public class Aerolinea {
     @Override
     public boolean equals(Object obj) {
         return this.getNombre().equals(((Aerolinea) obj).getNombre());
+    }
+
+    @Override
+    public int compareTo(Aerolinea o) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }

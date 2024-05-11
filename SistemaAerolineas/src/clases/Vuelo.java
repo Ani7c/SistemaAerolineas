@@ -8,7 +8,7 @@ package clases;
  *
  * @author anita
  */
-public class Vuelo {  
+public class Vuelo implements Comparable<Vuelo>{  
     public String CodigoVuelo;
     public String Aerolinea;
     public String CodAvion;
@@ -51,4 +51,9 @@ public class Vuelo {
     
     
     //mejorar fecha
+
+    @Override
+    public int compareTo(Vuelo o) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 }
