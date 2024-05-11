@@ -1,6 +1,8 @@
 
 import sistemaAerolineas.Retorno;
 import sistemaAerolineas.Sistema;
+import org.junit.*;
+import static org.junit.Assert.*;
 
 
 public class ITest {
@@ -27,7 +29,7 @@ public class ITest {
         Retorno ret1 = miSistema.crearAerolinea("Iberia", "España", 160);
              
         Retorno ret2 = miSistema.crearAerolinea("Iberia", "Francia", 140);
-        assertEquals(Retorno.ok().resultado, ret2.resultado);
+        assertEquals(Retorno.error1().resultado, ret2.resultado);
     }
 
     @Test

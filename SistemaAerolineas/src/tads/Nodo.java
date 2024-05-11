@@ -2,7 +2,7 @@
 package tads;
 
 
-public class Nodo<T extends Comparable> {
+public class Nodo<T extends Comparable<T >> {
     private T dato;
     private Nodo<T> siguiente;
     

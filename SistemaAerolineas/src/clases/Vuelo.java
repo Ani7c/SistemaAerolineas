@@ -3,22 +3,23 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package clases;
-
+import tads.Lista;
 /**
  *
  * @author anita
  */
 public class Vuelo implements Comparable<Vuelo>{  
-    public String CodigoVuelo;
-    public String Aerolinea;
-    public String CodAvion;
-    public String PaisDestino;
+    private String CodigoVuelo;
+    private String Aerolinea;
+    private String CodAvion;
+    private String PaisDestino;
     public int Dia;
     public int Mes;
     public int Año;
     public int CantPasajesEcon;
     public int CantPasajesPClase;
-    
+    private Lista<Pasaje> pasajesVendidos;
+
     public Vuelo(){}
     
     public Vuelo(String CodigoVuelo, String Aerolinea, String CodAvion, String PaisDestino, int Dia, int Mes, int Año, int CantPasajesEcon, int CantPasajesPClase) {
@@ -49,7 +50,10 @@ public class Vuelo implements Comparable<Vuelo>{
         return this.PaisDestino;
     }
     
-    
+    public Lista<Pasaje> getPasajesVendidos() {
+        return this.pasajesVendidos;
+    }
+     
     //mejorar fecha
 
     @Override

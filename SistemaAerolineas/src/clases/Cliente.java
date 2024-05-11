@@ -50,4 +50,6 @@ public class Cliente {
     public boolean equals(Object obj) {
         return this.getPasaporte().equals(((Cliente) obj).getPasaporte());
     }
+    
+
 }

@@ -21,5 +21,9 @@ public class Pasaje {
         this.CategoríaPasaje = categoríaPasaje;
     }
     
-    
+    //@Override
+    //public int compareTo(Pasaje p) {
+        //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    //}
+     
 }

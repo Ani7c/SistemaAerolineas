@@ -110,6 +110,7 @@ public class Sistema implements IObligatorio {
         }
  
         aerolineaBuscada.getAviones().eliminarElemento(avion);
+        listaAviones.eliminarElemento(avion);
         return Retorno.ok();       
     }
 
@@ -136,15 +137,23 @@ public class Sistema implements IObligatorio {
     }
 
     @Override
-    //hacer
     public Retorno listarAerolineas() {
-        return Retorno.noImplementada();
+        listaAerolineas.mostrar();
+        return Retorno.ok(); 
     }
 
     @Override
-    //hacer
     public Retorno listarAvionesDeAerolinea(String nombre) {
-        return Retorno.noImplementada();
+        Aerolinea aBusq = new Aerolinea();
+        aBusq.setNombre(nombre);
+        Aerolinea aerolinea = listaAerolineas.obtenerElemento(aBusq);
+        
+        if (aerolinea == null) {
+            return Retorno.error1();
+        }
+        
+        aerolinea.getAviones().mostrar();
+        return Retorno.ok();
     }
 
     @Override
