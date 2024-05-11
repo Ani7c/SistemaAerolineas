@@ -41,11 +41,11 @@ public class Sistema implements IObligatorio {
 
     @Override
     public Retorno eliminarAerolinea(String nombre) {
-        Aerolinea aBorrar = new Aerolinea();
-        aBorrar.setNombre(nombre);
-        
+        Aerolinea a = new Aerolinea();
+        a.setNombre(nombre);
+        Aerolinea aBorrar = listaAerolineas.obtenerElemento(a);
         //En caso de que no exista una aerolínea con dicho nombre
-        if(listaAerolineas.obtenerElemento(aBorrar) == null) {
+        if(aBorrar == null) {
             return Retorno.error1();
         }
         //Si tiene aviones registrados
@@ -85,31 +85,42 @@ public class Sistema implements IObligatorio {
 
     @Override
     public Retorno eliminarAvion(String nomAerolinea, String codAvion) {
-        Avion aBorrar = new Avion();
+        Aerolinea aerolinea = new Aerolinea();
+        aerolinea.setNombre(nomAerolinea);
         
-        //En caso de que no exista la aerolínea. 
-        if(!listaAerolineas.existeElemento(nomAerolinea)) {
+        Avion avion = new Avion();
+        avion.setCodigo(codAvion);
+        
+        Aerolinea aerolineaBuscada = listaAerolineas.obtenerElemento(aerolinea);
+        if (aerolineaBuscada == null) { // En caso de que no exista la aerolínea. 
             return Retorno.error1();
         }
-        return Retorno.noImplementada();
-    }
 
-    @Override
-    public Retorno registrarCliente(String pasaporte, String nombre, int edad) {
-        //En caso de que la edad sea < 0
-        if (edad < 0) {
-            return Retorno.error1();
-        }
-        //En caso de que el número de pasaporte sea <> a 7 caracteres.
-        if (pasaporte.length() != 7) {
+        avion = aerolineaBuscada.getAviones().obtenerElemento(avion);
+        if (avion.getCodigo() == null) { //En caso de que no exista el código de avión dentro de la aerolínea.
             return Retorno.error2();
         }
-        //En caso de que ya exista un cliente con dicho pasaporte
-        
+        // En caso de que tenga algún viaje con pasajes vendidos
+        for (Vuelo vuelo : listaVuelos) {
+            if (vuelo.getCodAvion().equals(codAvion)) {
+                if (!vuelo.getPasajesVendidos().esVacia()) {
+                    return Retorno.error3();
+                }
+            }
+        }
+ 
+        aerolineaBuscada.getAviones().eliminarElemento(avion);
+        return Retorno.ok();       
+    }
+
+    @Override
+    //no se hace
+    public Retorno registrarCliente(String pasaporte, String nombre, int edad) {
         return Retorno.noImplementada();
     }
 
     @Override
+    //no se hace
     public Retorno crearVuelo(String codigoVuelo, String aerolinea, String codAvion, String paisDestino, int dia, int mes, int año, int cantPasajesEcon, int cantPasajesPClase) {
         return Retorno.noImplementada();
     }
@@ -125,11 +136,13 @@ public class Sistema implements IObligatorio {
     }
 
     @Override
+    //hacer
     public Retorno listarAerolineas() {
         return Retorno.noImplementada();
     }
 
     @Override
+    //hacer
     public Retorno listarAvionesDeAerolinea(String nombre) {
         return Retorno.noImplementada();
     }

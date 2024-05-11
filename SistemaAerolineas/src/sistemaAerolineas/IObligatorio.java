@@ -7,9 +7,10 @@ public interface IObligatorio {
     **************** REGISTROS **************************************
     */
     
-    //pre:      post:
+    //pre:      
+    //post: Se crea la estructura necesaria para representar el sistema de gestión. Devuelve OK si el sistema se inicializó correctamente, o ERROR si la función aún no se ha implementado.
     public Retorno crearSistemaDeGestion();;
-     //pre:      post:
+     //pre:      post: Se registra una aerolínea especificando la cantidad máxima de aviones que puede gestionar.
     public Retorno crearAerolinea(String nombre, String pais, int cantMaxAviones); 
      //pre:      post:
     public  Retorno eliminarAerolinea(String nombre);; 

@@ -19,6 +19,8 @@ public class Vuelo {
     public int CantPasajesEcon;
     public int CantPasajesPClase;
     
+    public Vuelo(){}
+    
     public Vuelo(String CodigoVuelo, String Aerolinea, String CodAvion, String PaisDestino, int Dia, int Mes, int Año, int CantPasajesEcon, int CantPasajesPClase) {
         this.CodigoVuelo = CodigoVuelo;
         this.Aerolinea = Aerolinea;
@@ -30,6 +32,23 @@ public class Vuelo {
         this.CantPasajesEcon = CantPasajesEcon;
         this.CantPasajesPClase = CantPasajesPClase;
     }
+    
+    public String getCodVuelo() {
+        return this.CodigoVuelo;
+    }
+    
+    public String getAerolinea() {
+        return this.Aerolinea;
+    }
+    
+    public String getCodAvion() {
+        return this.CodAvion;
+    }
+    
+    public String getPaisDestino() {
+        return this.PaisDestino;
+    }
+    
     
     //mejorar fecha
 }

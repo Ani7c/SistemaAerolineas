@@ -13,6 +13,8 @@ public class Cliente {
     private String Pasaporte;
     private String Nombre;
     private int Edad;
+    
+    public Cliente(){}
 
     public Cliente(String Pasaporte, String Nombre, int Edad) {
         this.Pasaporte = Pasaporte;
