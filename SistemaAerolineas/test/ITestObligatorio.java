@@ -226,25 +226,25 @@ public class ITestObligatorio {
         assertEquals("Aerolineas Argentinas-Argentina-10|Copa Airlines-Panamá-30|Delta Air Lines-Estados Unidos-30|Iberia-España-20|", r.valorString);
     }
 
-//    @Test
-//    public void testListarAvionesDeAerolinea() {
-//        Retorno r = miSistema.crearAerolinea("Aerolineas Argentinas", "Argentina", 10);
-//        assertEquals(Retorno.ok().resultado, r.resultado);
-//        r = miSistema.crearAerolinea("Iberia", "España", 20);
-//        assertEquals(Retorno.ok().resultado, r.resultado);
-//        r = miSistema.crearAerolinea("Delta Air Lines", "Estados Unidos", 30);
-//        assertEquals(Retorno.ok().resultado, r.resultado);
-//
-//        r = miSistema.registrarAvion("AA345",12, "Aerolineas Argentinas");
-//        assertEquals(Retorno.ok().resultado, r.resultado);
-//        r = miSistema.registrarAvion("IB563",21, "Iberia");
-//        assertEquals(Retorno.ok().resultado, r.resultado);
-//        r = miSistema.registrarAvion("AA311", 21, "Aerolineas Argentinas");
-//        assertEquals(Retorno.ok().resultado, r.resultado);
-//        
-//        r = miSistema.listarAvionesDeAerolinea("Aerolineas Argentinas");
-//        assertEquals("AA311-21|\nAA345-12|" , r.valorString);
-//            
-//    }
+    @Test
+    public void testListarAvionesDeAerolinea() {
+        Retorno r = miSistema.crearAerolinea("Aerolineas Argentinas", "Argentina", 10);
+        assertEquals(Retorno.ok().resultado, r.resultado);
+        r = miSistema.crearAerolinea("Iberia", "España", 20);
+        assertEquals(Retorno.ok().resultado, r.resultado);
+        r = miSistema.crearAerolinea("Delta Air Lines", "Estados Unidos", 30);
+        assertEquals(Retorno.ok().resultado, r.resultado);
+
+        r = miSistema.registrarAvion("AA345",12, "Aerolineas Argentinas");
+        assertEquals(Retorno.ok().resultado, r.resultado);
+        r = miSistema.registrarAvion("IB563",21, "Iberia");
+        assertEquals(Retorno.ok().resultado, r.resultado);
+        r = miSistema.registrarAvion("AA311", 21, "Aerolineas Argentinas");
+        assertEquals(Retorno.ok().resultado, r.resultado);
+        
+        r = miSistema.listarAvionesDeAerolinea("Aerolineas Argentinas");
+        assertEquals("AA311-21|AA345-12|" , r.valorString);
+            
+    }
 
 }

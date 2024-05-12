@@ -58,6 +58,6 @@ public class Vuelo implements Comparable<Vuelo>{
 
     @Override
     public int compareTo(Vuelo o) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return this.getCodVuelo().compareTo(o.getCodVuelo()); // Comparar los códigos normalmente
     }
 }

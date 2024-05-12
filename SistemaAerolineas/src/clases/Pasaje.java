@@ -21,9 +21,17 @@ public class Pasaje implements Comparable<Pasaje>{
         this.CategoríaPasaje = categoríaPasaje;
     }
 
+    public String getCodVuelo() {
+        return this.CodigoVuelo;
+    }
+    
+    public String getPasaporte() {
+        return PasaporteCliente;
+    }
+    
     @Override
     public int compareTo(Pasaje o) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return this.getPasaporte().compareTo(o.getPasaporte());
     }
     
 

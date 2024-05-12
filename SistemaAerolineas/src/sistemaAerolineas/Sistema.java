@@ -148,18 +148,6 @@ public class Sistema implements IObligatorio {
         return Retorno.noImplementada();
     }
 
-//    @Override
-//    public Retorno listarAerolineas() {
-//        Retorno ret = Retorno.noImplementada();
-//        if(listaAerolineas.esVacia()) {
-//            System.out.println("La lista de aerolineas está vacia.");
-//        } else {
-//            listaAerolineas.mostrar();
-//            return Retorno.ok(); 
-//        }
-//        return ret;      
-//    }   
-    
       @Override
     public Retorno listarAerolineas() {
         //Completar con OK (armar cadena)
@@ -174,19 +162,26 @@ public class Sistema implements IObligatorio {
         return ret;
     }
 
-//    @Override
-//    public Retorno listarAvionesDeAerolinea(String nombre) {
-//        Aerolinea aBusq = new Aerolinea();
-//        aBusq.setNombre(nombre);
-//        Aerolinea aerolinea = listaAerolineas.obtenerElemento(aBusq);
-//        
-//        if (aerolinea == null) {
-//            return Retorno.error1();
-//        }
-//        
-//        aerolinea.getAviones().mostrar();
-//        return Retorno.ok();
-//    }
+    @Override
+    public Retorno listarAvionesDeAerolinea(String nombre) {
+        Retorno ret = new Retorno(Retorno.Resultado.OK);
+        Aerolinea aBusq = new Aerolinea();
+        aBusq.setNombre(nombre);
+        Aerolinea aerolinea = listaAerolineas.obtenerElemento(aBusq);
+        
+        if (aerolinea == null) {
+            return Retorno.error1();
+        } else {
+            Nodo<Avion> nodoAvion = aerolinea.getAviones().getInicio();
+            ret.valorString = "";
+            while(nodoAvion!=null) {
+                ret.valorString += nodoAvion.getDato().toString();
+                nodoAvion = nodoAvion.getSiguiente();
+            }
+        }
+        
+        return ret;
+    }
 
     @Override
     public Retorno listarClientes() {
@@ -211,11 +206,6 @@ public class Sistema implements IObligatorio {
     @Override
     public Retorno vistaDeVuelo(String codigoVuelo) {
         return Retorno.noImplementada();
-    }
-
-    @Override
-    public Retorno listarAvionesDeAerolinea(String nombre) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
 }
