@@ -223,7 +223,7 @@ public class ITestObligatorio {
         r = miSistema.crearAerolinea("Copa Airlines", "Panamá", 30);
         assertEquals(Retorno.ok().resultado, r.resultado);
         r = miSistema.listarAerolineas();
-        assertEquals("Aerolineas Argentinas-Argentina-10|\nCopa Airlines-Panamá-30|\nDelta Air Lines-Estados Unidos-30|\nIberia-España-20|", r.valorString);
+        assertEquals("Aerolineas Argentinas-Argentina-10|Copa Airlines-Panamá-30|Delta Air Lines-Estados Unidos-30|Iberia-España-20|", r.valorString);
     }
 
 //    @Test
