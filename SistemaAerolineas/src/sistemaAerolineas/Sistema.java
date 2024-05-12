@@ -148,18 +148,31 @@ public class Sistema implements IObligatorio {
         return Retorno.noImplementada();
     }
 
-    @Override
-    public Retorno listarAerolineas() {
-        Retorno ret = Retorno.noImplementada();
-        if(listaAerolineas.esVacia()) {
-            System.out.println("La lista de aerolineas está vacia.");
-        } else {
-            listaAerolineas.mostrar();
-            return Retorno.ok(); 
-        }
-        return ret;      
-    }   
+//    @Override
+//    public Retorno listarAerolineas() {
+//        Retorno ret = Retorno.noImplementada();
+//        if(listaAerolineas.esVacia()) {
+//            System.out.println("La lista de aerolineas está vacia.");
+//        } else {
+//            listaAerolineas.mostrar();
+//            return Retorno.ok(); 
+//        }
+//        return ret;      
+//    }   
     
+      @Override
+    public Retorno listarAerolineas() {
+        //Completar con OK (armar cadena)
+        Retorno ret = new Retorno(Retorno.Resultado.OK);
+        Nodo<Aerolinea> nodoAerolinea = listaAerolineas.getInicio();
+        ret.valorString = "";
+        while(nodoAerolinea!=null){
+            ret.valorString+= nodoAerolinea.getDato().toString();
+            nodoAerolinea = nodoAerolinea.getSiguiente();
+        }
+        
+        return ret;
+    }
 
 //    @Override
 //    public Retorno listarAvionesDeAerolinea(String nombre) {
