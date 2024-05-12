@@ -6,6 +6,7 @@ import clases.Avion;
 import clases.Cliente;
 import clases.Pasaje;
 import clases.Vuelo;
+import tads.Nodo;
 
 public class Sistema implements IObligatorio {
 
@@ -17,7 +18,7 @@ public class Sistema implements IObligatorio {
     
     @Override
     public Retorno crearSistemaDeGestion() {
-        listaAerolineas = new Lista();
+        listaAerolineas = new Lista<Aerolinea>();
         listaAviones = new Lista();
         listaClientes = new Lista();
         listaPasajes = new Lista();
@@ -35,7 +36,7 @@ public class Sistema implements IObligatorio {
         if (listaAerolineas.existeElemento(aerolinea)) {
             return Retorno.error1();
         }
-        listaAerolineas.agregarInicio(aerolinea);
+        listaAerolineas.agregarOrdenado(aerolinea);
         return Retorno.ok();
     }
 
@@ -43,11 +44,12 @@ public class Sistema implements IObligatorio {
     public Retorno eliminarAerolinea(String nombre) {
         Aerolinea a = new Aerolinea();
         a.setNombre(nombre);
-        Aerolinea aBorrar = listaAerolineas.obtenerElemento(a);
         //En caso de que no exista una aerolínea con dicho nombre
-        if(aBorrar == null) {
+        if(!listaAerolineas.existeElemento(a)) {
             return Retorno.error1();
         }
+        Aerolinea aBorrar = listaAerolineas.obtenerElemento(a);
+
         //Si tiene aviones registrados
         if (!aBorrar.getAviones().esVacia()) {
             return Retorno.error2();
@@ -56,33 +58,36 @@ public class Sistema implements IObligatorio {
         return Retorno.ok();
     }
 
-    @Override
+ @Override
     public Retorno registrarAvion(String codigo, int capacidadMax, String nomAerolinea) {
         Avion avion = new Avion(codigo, capacidadMax, nomAerolinea);
         
+        Aerolinea aBuscar = new Aerolinea();
+        aBuscar.setNombre(nomAerolinea);
+        
+        //Si no existe la aerolínea
+        if(!listaAerolineas.existeElemento(aBuscar)) {
+            return Retorno.error3();
+        }        
+        
+        Aerolinea aerolinea = listaAerolineas.obtenerElemento(aBuscar);
+        
         //En caso de que ya exista dicho código de avión en la aerolínea.
-        if (listaAviones.existeElemento(avion)) {
+        if (aerolinea.getAviones().existeElemento(avion)) {
             return Retorno.error1();
         }
+        
         //Si la capacidad máxima es < que 9 pasajeros o no es múltiplo de 3.
         if (capacidadMax < 9 || (capacidadMax % 3) != 0) {
             return Retorno.error2();
-        }
-        Aerolinea aBuscar = new Aerolinea();
-        aBuscar.setNombre(nomAerolinea);
-        Aerolinea aerolinea = listaAerolineas.obtenerElemento(aBuscar);
-        
-        //Si no existe la aerolínea
-        if(aerolinea == null) {
-            return Retorno.error3();
-        }
+        }      
         
         aerolinea.setAviones(avion);
         listaAviones.agregarInicio(avion);
         
         return Retorno.ok();
     }
-
+    
     @Override
     public Retorno eliminarAvion(String nomAerolinea, String codAvion) {
         Aerolinea aerolinea = new Aerolinea();
@@ -91,23 +96,35 @@ public class Sistema implements IObligatorio {
         Avion avion = new Avion();
         avion.setCodigo(codAvion);
         
-        Aerolinea aerolineaBuscada = listaAerolineas.obtenerElemento(aerolinea);
-        if (aerolineaBuscada == null) { // En caso de que no exista la aerolínea. 
+        if (!listaAerolineas.existeElemento(aerolinea)) { // En caso de que no exista la aerolínea. 
+            
             return Retorno.error1();
         }
-
+        Aerolinea aerolineaBuscada = listaAerolineas.obtenerElemento(aerolinea);
         avion = aerolineaBuscada.getAviones().obtenerElemento(avion);
         if (avion.getCodigo() == null) { //En caso de que no exista el código de avión dentro de la aerolínea.
             return Retorno.error2();
-        }
-        // En caso de que tenga algún viaje con pasajes vendidos
-        for (Vuelo vuelo : listaVuelos) {
-            if (vuelo.getCodAvion().equals(codAvion)) {
-                if (!vuelo.getPasajesVendidos().esVacia()) {
-                    return Retorno.error3();
-                }
+        } else {
+            Lista listaVuelosDeAvion = avion.getListaVuelos();
+            Nodo<Vuelo> vueloNodo = listaVuelosDeAvion.getInicio();
+            while(vueloNodo != null) {
+            if (!vueloNodo.getDato().getPasajesVendidos().esVacia()){
+                return Retorno.error3();
+            } else {
+                vueloNodo = vueloNodo.getSiguiente();
+            }
             }
         }
+        // En caso de que tenga algún viaje con pasajes vendidos
+        
+        
+//        for (Vuelo vuelo : listaVuelos) {
+//            if (vuelo.getCodAvion().equals(codAvion)) {
+//                if (!vuelo.getPasajesVendidos().esVacia()) {
+//                    return Retorno.error3();
+//                }
+//            }
+//        }
  
         aerolineaBuscada.getAviones().eliminarElemento(avion);
         listaAviones.eliminarElemento(avion);

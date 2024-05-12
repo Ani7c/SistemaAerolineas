@@ -8,7 +8,7 @@ package clases;
  *
  * @author anita
  */
-public class Cliente {
+public class Cliente implements Comparable<Cliente> {
 
     private String Pasaporte;
     private String Nombre;
@@ -49,6 +49,11 @@ public class Cliente {
     @Override
     public boolean equals(Object obj) {
         return this.getPasaporte().equals(((Cliente) obj).getPasaporte());
+    }
+
+    @Override
+    public int compareTo(Cliente o) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
     
 

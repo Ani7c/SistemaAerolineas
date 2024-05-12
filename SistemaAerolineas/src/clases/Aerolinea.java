@@ -22,7 +22,7 @@ public class Aerolinea implements Comparable<Aerolinea>{
         this.Nombre = Nombre;
         this.Pais = Pais;
         this.CantMaxAviones = CantMaxAviones;
-        this.listaAviones = new Lista();
+        this.listaAviones = new Lista<Avion>();
     }
     
     public String getNombre() {
@@ -64,7 +64,7 @@ public class Aerolinea implements Comparable<Aerolinea>{
 
     @Override
     public int compareTo(Aerolinea o) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return this.getNombre().compareTo(o.getNombre());    
     }
     
     @Override

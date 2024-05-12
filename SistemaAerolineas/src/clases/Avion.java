@@ -4,6 +4,8 @@
  */
 package clases;
 
+import tads.Lista;
+
 /**
  *
  * @author anita
@@ -12,6 +14,7 @@ public class Avion implements Comparable<Avion>{
     private String Codigo;
     private int CapacidadMax;
     private String NomAerolinea;
+    private Lista<Vuelo> listaVuelos;
     
     public Avion(){};
 
@@ -19,6 +22,7 @@ public class Avion implements Comparable<Avion>{
         this.Codigo = Codigo;
         this.CapacidadMax = CapacidadMax;
         this.NomAerolinea = NomAerolinea;
+        this.listaVuelos = new Lista<Vuelo>();
     }
     
     public String getCodigo() {
@@ -43,6 +47,10 @@ public class Avion implements Comparable<Avion>{
     
     public void setNomAerolinea(String nomAerolinea) {
         this.NomAerolinea = nomAerolinea;
+    }
+    
+    public Lista<Vuelo> getListaVuelos() {
+        return this.listaVuelos;
     }
     
     @Override

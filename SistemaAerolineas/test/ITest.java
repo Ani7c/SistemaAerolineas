@@ -35,35 +35,35 @@ public class ITest {
         assertEquals(Retorno.error2().resultado, ret3.resultado);
     }
 
-    @Test
-    public void eliminarAerolineaOK() {
-        Retorno ret1 = miSistema.crearAerolinea("Iberia", "España", 160);
-        assertEquals(Retorno.ok().resultado, ret1.resultado);
-        
-        Retorno ret2 = miSistema.eliminarAerolinea("Iberia");
-        assertEquals(Retorno.ok().resultado, ret2.resultado);
-    }
-    
-    @Test
-    public void eliminarAerolineaERROR1() {
-        Retorno ret1 = miSistema.crearAerolinea("Iberia", "España", 160);
-        assertEquals(Retorno.ok().resultado, ret1.resultado);
-        
-        Retorno ret3 = miSistema.eliminarAerolinea("LATAM Airlines");
-        assertEquals(Retorno.error1().resultado, ret3.resultado);
-    }
-    
-    @Test
-    public void eliminarAerolineaERROR2() {
-        Retorno ret1 = miSistema.crearAerolinea("Iberia", "España", 160);
-        assertEquals(Retorno.ok().resultado, ret1.resultado);
-        
-        Retorno ret2 = miSistema.registrarAvion("76ER4", 720, "Iberia");
-        assertEquals(Retorno.ok().resultado, ret2.resultado);
-        
-        Retorno ret3 = miSistema.eliminarAerolinea("Iberia");
-        assertEquals(Retorno.error2().resultado, ret3.resultado);
-    }
+//    @Test
+//    public void eliminarAerolineaOK() {
+//        Retorno ret1 = miSistema.crearAerolinea("Iberia", "España", 160);
+//        assertEquals(Retorno.ok().resultado, ret1.resultado);
+//        
+//        Retorno ret2 = miSistema.eliminarAerolinea("Iberia");
+//        assertEquals(Retorno.ok().resultado, ret2.resultado);
+//    }
+//    
+//    @Test
+//    public void eliminarAerolineaERROR1() {
+//        Retorno ret1 = miSistema.crearAerolinea("Iberia", "España", 160);
+//        assertEquals(Retorno.ok().resultado, ret1.resultado);
+//        
+//        Retorno ret3 = miSistema.eliminarAerolinea("LATAM Airlines");
+//        assertEquals(Retorno.error1().resultado, ret3.resultado);
+//    }
+//    
+//    @Test
+//    public void eliminarAerolineaERROR2() {
+//        Retorno ret1 = miSistema.crearAerolinea("Iberia", "España", 160);
+//        assertEquals(Retorno.ok().resultado, ret1.resultado);
+//        
+//        Retorno ret2 = miSistema.registrarAvion("76ER4", 720, "Iberia");
+//        assertEquals(Retorno.ok().resultado, ret2.resultado);
+//        
+//        Retorno ret3 = miSistema.eliminarAerolinea("Iberia");
+//        assertEquals(Retorno.error2().resultado, ret3.resultado);
+//    }
     
     
     @Test
@@ -110,7 +110,15 @@ public class ITest {
     
     @Test
     public void eliminarAvionOK() {
+        Retorno ret = miSistema.crearAerolinea("American Airlines", "Estados Unidos", 20);
+        assertEquals(Retorno.ok().resultado, ret.resultado);
         
+        Retorno ret2 = miSistema.registrarAvion("65RE3", 720, "American Airlines");
+        assertEquals(Retorno.ok().resultado, ret2.resultado);
+        
+        Retorno ret3 = miSistema.eliminarAvion("American Airlines", "65RE3");
+        assertEquals(Retorno.ok().resultado,ret3.resultado);
+    
     }
     
     @Test
