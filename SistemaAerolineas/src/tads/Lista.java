@@ -127,7 +127,11 @@ public class Lista<T extends Comparable<T>> implements ILista<T> {
                 nodoNuevo = nodoNuevo.getSiguiente();
             }
         }
-        return nodoNuevo.getDato();
+        if (nodoNuevo != null) {
+            return nodoNuevo.getDato(); // Devuelve el dato si se encuentra en la lista
+        } else {
+            return null; // Devuelve null si el dato no se encuentra en la lista
+        }
     }
 
 

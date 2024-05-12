@@ -19,10 +19,10 @@ public class Sistema implements IObligatorio {
     @Override
     public Retorno crearSistemaDeGestion() {
         listaAerolineas = new Lista<Aerolinea>();
-        listaAviones = new Lista();
-        listaClientes = new Lista();
-        listaPasajes = new Lista();
-        listaVuelos  = new Lista();
+        listaAviones = new Lista<Avion>();
+        listaClientes = new Lista<Cliente>();
+        listaPasajes = new Lista<Pasaje>();
+        listaVuelos  = new Lista<Vuelo>();
         return Retorno.ok();
     }
 
@@ -102,10 +102,16 @@ public class Sistema implements IObligatorio {
         }
         Aerolinea aerolineaBuscada = listaAerolineas.obtenerElemento(aerolinea);
         avion = aerolineaBuscada.getAviones().obtenerElemento(avion);
-        if (avion.getCodigo() == null) { //En caso de que no exista el código de avión dentro de la aerolínea.
+        if (avion == null) { //En caso de que no exista el código de avión dentro de la aerolínea.
             return Retorno.error2();
         } else {
+            // En caso de que tenga algún viaje con pasajes vendidos
             Lista listaVuelosDeAvion = avion.getListaVuelos();
+            if (listaVuelosDeAvion.esVacia()) {
+                aerolineaBuscada.getAviones().eliminarElemento(avion);
+                listaAviones.eliminarElemento(avion);
+                return Retorno.ok();       
+            }
             Nodo<Vuelo> vueloNodo = listaVuelosDeAvion.getInicio();
             while(vueloNodo != null) {
             if (!vueloNodo.getDato().getPasajesVendidos().esVacia()){
@@ -115,17 +121,6 @@ public class Sistema implements IObligatorio {
             }
             }
         }
-        // En caso de que tenga algún viaje con pasajes vendidos
-        
-        
-//        for (Vuelo vuelo : listaVuelos) {
-//            if (vuelo.getCodAvion().equals(codAvion)) {
-//                if (!vuelo.getPasajesVendidos().esVacia()) {
-//                    return Retorno.error3();
-//                }
-//            }
-//        }
- 
         aerolineaBuscada.getAviones().eliminarElemento(avion);
         listaAviones.eliminarElemento(avion);
         return Retorno.ok();       
@@ -155,23 +150,30 @@ public class Sistema implements IObligatorio {
 
     @Override
     public Retorno listarAerolineas() {
-        listaAerolineas.mostrar();
-        return Retorno.ok(); 
-    }
-
-    @Override
-    public Retorno listarAvionesDeAerolinea(String nombre) {
-        Aerolinea aBusq = new Aerolinea();
-        aBusq.setNombre(nombre);
-        Aerolinea aerolinea = listaAerolineas.obtenerElemento(aBusq);
-        
-        if (aerolinea == null) {
-            return Retorno.error1();
+        Retorno ret = Retorno.noImplementada();
+        if(listaAerolineas.esVacia()) {
+            System.out.println("La lista de aerolineas está vacia.");
+        } else {
+            listaAerolineas.mostrar();
+            return Retorno.ok(); 
         }
-        
-        aerolinea.getAviones().mostrar();
-        return Retorno.ok();
-    }
+        return ret;      
+    }   
+    
+
+//    @Override
+//    public Retorno listarAvionesDeAerolinea(String nombre) {
+//        Aerolinea aBusq = new Aerolinea();
+//        aBusq.setNombre(nombre);
+//        Aerolinea aerolinea = listaAerolineas.obtenerElemento(aBusq);
+//        
+//        if (aerolinea == null) {
+//            return Retorno.error1();
+//        }
+//        
+//        aerolinea.getAviones().mostrar();
+//        return Retorno.ok();
+//    }
 
     @Override
     public Retorno listarClientes() {
@@ -196,6 +198,11 @@ public class Sistema implements IObligatorio {
     @Override
     public Retorno vistaDeVuelo(String codigoVuelo) {
         return Retorno.noImplementada();
+    }
+
+    @Override
+    public Retorno listarAvionesDeAerolinea(String nombre) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
 }

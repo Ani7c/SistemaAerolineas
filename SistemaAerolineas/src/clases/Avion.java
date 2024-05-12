@@ -60,7 +60,16 @@ public class Avion implements Comparable<Avion>{
 
     @Override
     public int compareTo(Avion o) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        //return this.getCodigo().compareTo(o.getCodigo());    
+          if (this.getCodigo() == null && o.getCodigo() == null) {
+        return 0; // Ambos códigos son null, por lo que son iguales
+    } else if (this.getCodigo() == null) {
+        return -1; // El código de este avión es null, por lo que es menor que el otro
+    } else if (o.getCodigo() == null) {
+        return 1; // El código del otro avión es null, por lo que este es mayor que el otro
+    } else {
+        return this.getCodigo().compareTo(o.getCodigo()); // Comparar los códigos normalmente
+    }
     }
     
      @Override
