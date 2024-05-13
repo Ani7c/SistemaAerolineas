@@ -21,18 +21,42 @@ public class ITest {
     public void crearAerolineaOK() {
         Retorno ret = miSistema.crearAerolinea("Iberia", "España", 160);
         assertEquals(Retorno.ok().resultado, ret.resultado);
+        
+        Retorno ret1 = miSistema.crearAerolinea("Air France", "Francia", 170);
+        assertEquals(Retorno.ok().resultado, ret1.resultado);
+        
+        Retorno ret2 = miSistema.crearAerolinea("Qatar Airways", "Qatar", 150);
+        assertEquals(Retorno.ok().resultado, ret2.resultado);
     }
     
     @Test
-    public void crearAerolineaERROR() {
+    public void crearAerolineaERROR1() {
         Retorno ret1 = miSistema.crearAerolinea("Iberia", "España", 160);
         assertEquals(Retorno.ok().resultado, ret1.resultado);
         
-        Retorno ret2 = miSistema.crearAerolinea("Iberia", "Francia", 140);
-        assertEquals(Retorno.error1().resultado, ret2.resultado);
+        Retorno ret2 = miSistema.crearAerolinea("Air France", "Francia", 100);
+        assertEquals(Retorno.ok().resultado, ret2.resultado);
         
-        Retorno ret3 = miSistema.crearAerolinea("LATAM Airlines", "Chile", 0);
-        assertEquals(Retorno.error2().resultado, ret3.resultado);
+        Retorno ret3 = miSistema.crearAerolinea("Qatar Airways", "Qatar", 130);
+        assertEquals(Retorno.ok().resultado, ret3.resultado);
+        
+        Retorno ret4 = miSistema.crearAerolinea("Iberia", "Francia", 140);
+        assertEquals(Retorno.error1().resultado, ret4.resultado);
+        
+        Retorno ret5 = miSistema.crearAerolinea("Air France", "Francia", 140);
+        assertEquals(Retorno.error1().resultado, ret5.resultado);
+        
+        Retorno ret6 = miSistema.crearAerolinea("Qatar Airways", "Qatar", 90);
+        assertEquals(Retorno.error1().resultado, ret6.resultado);
+    }
+    
+    @Test
+    public void crearAerolineaERROR2() {
+        Retorno ret1 = miSistema.crearAerolinea("Iberia", "España", 0);
+        assertEquals(Retorno.error2().resultado, ret1.resultado);
+        
+        Retorno ret2 = miSistema.crearAerolinea("Air France", "Francia", -10);
+        assertEquals(Retorno.error2().resultado, ret2.resultado);
     }
 
     @Test
@@ -71,41 +95,77 @@ public class ITest {
         Retorno ret1 = miSistema.crearAerolinea("Iberia", "España", 160);
         assertEquals(Retorno.ok().resultado, ret1.resultado);
         
-        Retorno ret2 = miSistema.registrarAvion("76ER4", 720, "Iberia");
+        Retorno ret2 = miSistema.crearAerolinea("Air France", "Francia", 100);
         assertEquals(Retorno.ok().resultado, ret2.resultado);
+        
+        Retorno ret3 = miSistema.crearAerolinea("Qatar Airways", "Qatar", 130);
+        assertEquals(Retorno.ok().resultado, ret3.resultado);
+        
+        Retorno ret4 = miSistema.registrarAvion("76ER4", 720, "Iberia");
+        assertEquals(Retorno.ok().resultado, ret4.resultado);
+        
+        Retorno ret5 = miSistema.registrarAvion("H8VR9", 723, "Air France");
+        assertEquals(Retorno.ok().resultado, ret5.resultado);
+        
+        Retorno ret6 = miSistema.registrarAvion("0YVK9", 726, "Qatar Airways");
+        assertEquals(Retorno.ok().resultado, ret6.resultado);
     }
     
     @Test
     public void registrarAvionERROR1() {
-         Retorno ret1 = miSistema.crearAerolinea("Iberia", "España", 160);
+        Retorno ret1 = miSistema.crearAerolinea("Iberia", "España", 160);
         assertEquals(Retorno.ok().resultado, ret1.resultado);
         
         Retorno ret2 = miSistema.registrarAvion("76ER4", 720, "Iberia");
         assertEquals(Retorno.ok().resultado, ret2.resultado);
         
-        Retorno ret3 = miSistema.registrarAvion("76ER4", 723, "Iberia");
-        assertEquals(Retorno.error1().resultado, ret3.resultado);    
+        Retorno ret3 = miSistema.registrarAvion("8UEK0", 726, "Iberia");
+        assertEquals(Retorno.ok().resultado, ret3.resultado);
+        
+        Retorno ret4 = miSistema.registrarAvion("JUHK0", 729, "Iberia");
+        assertEquals(Retorno.ok().resultado, ret4.resultado);
+        
+        Retorno ret5 = miSistema.registrarAvion("76ER4", 723, "Iberia");
+        assertEquals(Retorno.error1().resultado, ret5.resultado);    
+        
+        Retorno ret6 = miSistema.registrarAvion("8UEK0", 729, "Iberia");
+        assertEquals(Retorno.error1().resultado, ret6.resultado);
+        
+        Retorno ret7 = miSistema.registrarAvion("JUHK0", 732, "Iberia");
+        assertEquals(Retorno.error1().resultado, ret7.resultado);
     }
     
     @Test
     public void registrarAvionERROR2() {
-         Retorno ret1 = miSistema.crearAerolinea("Iberia", "España", 160);
+        Retorno ret1 = miSistema.crearAerolinea("Iberia", "España", 160);
         assertEquals(Retorno.ok().resultado, ret1.resultado);
         
-        Retorno ret2 = miSistema.registrarAvion("76ER4", 8, "Iberia");
-        assertEquals(Retorno.error2().resultado, ret2.resultado);   
+        Retorno ret2 = miSistema.crearAerolinea("Air France", "Francia", 100);
+        assertEquals(Retorno.ok().resultado, ret2.resultado);
+        
+        Retorno ret3 = miSistema.registrarAvion("76ER4", 8, "Iberia");
+        assertEquals(Retorno.error2().resultado, ret3.resultado);   
 
-        Retorno ret3 = miSistema.registrarAvion("76ER4", 721, "Iberia");
-        assertEquals(Retorno.error2().resultado, ret3.resultado); 
+        Retorno ret4 = miSistema.registrarAvion("76ER4", 721, "Air France");
+        assertEquals(Retorno.error2().resultado, ret4.resultado); 
     }
     
     @Test
     public void registrarAvionERROR3() {
-         Retorno ret1 = miSistema.crearAerolinea("Iberia", "España", 160);
+        Retorno ret1 = miSistema.crearAerolinea("Iberia", "España", 160);
         assertEquals(Retorno.ok().resultado, ret1.resultado);
         
-        Retorno ret2 = miSistema.registrarAvion("76ER4", 723, "LATAM Airlines");
-        assertEquals(Retorno.error3().resultado, ret2.resultado);   
+        Retorno ret2 = miSistema.crearAerolinea("Air France", "Francia", 100);
+        assertEquals(Retorno.ok().resultado, ret2.resultado);
+        
+        Retorno ret3 = miSistema.crearAerolinea("Qatar Airways", "Qatar", 130);
+        assertEquals(Retorno.ok().resultado, ret3.resultado);
+        
+        Retorno ret4 = miSistema.registrarAvion("76ER4", 723, "LATAM Airlines");
+        assertEquals(Retorno.error3().resultado, ret4.resultado); 
+        
+        Retorno ret5 = miSistema.registrarAvion("80YR4", 723, "Emirates");
+        assertEquals(Retorno.error3().resultado, ret5.resultado);   
     }
     
     @Test
