@@ -63,31 +63,52 @@ public class ITest {
     public void eliminarAerolineaOK() {
         Retorno ret1 = miSistema.crearAerolinea("Iberia", "España", 160);
         assertEquals(Retorno.ok().resultado, ret1.resultado);
+        ret1 = miSistema.crearAerolinea("American Airlines", "Estados Unidos", 30);
+        assertEquals(Retorno.ok().resultado, ret1.resultado);
+        ret1 = miSistema.crearAerolinea("Emirates", "Emiratos Árabes Unidos", 20);
+        assertEquals(Retorno.ok().resultado, ret1.resultado);
+        ret1 = miSistema.crearAerolinea("Air France", "Francia", 10);
+        assertEquals(Retorno.ok().resultado, ret1.resultado);
+        ret1 = miSistema.eliminarAerolinea("Emirates");
+        assertEquals(Retorno.ok().resultado, ret1.resultado);     
+        ret1 = miSistema.eliminarAerolinea("Iberia");
+        assertEquals(Retorno.ok().resultado, ret1.resultado);
         
-        Retorno ret2 = miSistema.eliminarAerolinea("Iberia");
-        assertEquals(Retorno.ok().resultado, ret2.resultado);
+       
     }
     
     @Test
     public void eliminarAerolineaERROR1() {
         Retorno ret1 = miSistema.crearAerolinea("Iberia", "España", 160);
         assertEquals(Retorno.ok().resultado, ret1.resultado);
+        ret1 = miSistema.crearAerolinea("American Airlines", "Estados Unidos", 30);
+        assertEquals(Retorno.ok().resultado, ret1.resultado);
+        ret1 = miSistema.crearAerolinea("Air France", "Francia", 10);
+        assertEquals(Retorno.ok().resultado, ret1.resultado);
         
-        Retorno ret3 = miSistema.eliminarAerolinea("LATAM Airlines");
-        assertEquals(Retorno.error1().resultado, ret3.resultado);
+        
+        ret1 = miSistema.eliminarAerolinea("British Airways");
+        assertEquals(Retorno.error1().resultado, ret1.resultado);     
+        ret1 = miSistema.eliminarAerolinea("LATAM Airlines");
+        assertEquals(Retorno.error1().resultado, ret1.resultado);
     }
     
     @Test
     public void eliminarAerolineaERROR2() {
         Retorno ret1 = miSistema.crearAerolinea("Iberia", "España", 160);
         assertEquals(Retorno.ok().resultado, ret1.resultado);
+        ret1 = miSistema.crearAerolinea("American Airlines", "Estados Unidos", 30);
+        assertEquals(Retorno.ok().resultado, ret1.resultado);
+        ret1 = miSistema.crearAerolinea("Air France", "Francia", 10);
+        assertEquals(Retorno.ok().resultado, ret1.resultado);
         
-        Retorno ret2 = miSistema.registrarAvion("76ER4", 720, "Iberia");
-        assertEquals(Retorno.ok().resultado, ret2.resultado);
-        
-        Retorno ret3 = miSistema.eliminarAerolinea("Iberia");
-        assertEquals(Retorno.error2().resultado, ret3.resultado);
+        ret1 = miSistema.registrarAvion("76ER4", 720, "Iberia");
+        assertEquals(Retorno.ok().resultado, ret1.resultado); 
+        ret1 = miSistema.eliminarAerolinea("Iberia");
+        assertEquals(Retorno.error2().resultado, ret1.resultado);
     }
+    
+
     
     
     @Test
@@ -172,77 +193,107 @@ public class ITest {
     public void eliminarAvionOK() {
         Retorno ret = miSistema.crearAerolinea("American Airlines", "Estados Unidos", 20);
         assertEquals(Retorno.ok().resultado, ret.resultado);
-        
-        Retorno ret2 = miSistema.registrarAvion("65RE3", 720, "American Airlines");
-        assertEquals(Retorno.ok().resultado, ret2.resultado);
-        
-        Retorno ret3 = miSistema.eliminarAvion("American Airlines", "65RE3");
-        assertEquals(Retorno.ok().resultado,ret3.resultado);
-    
-    }
-    
-    @Test
-    public void eliminarAvionERROR() {
-        Retorno ret = miSistema.crearAerolinea("American Airlines", "Estados Unidos", 20);
+        ret = miSistema.crearAerolinea("Iberia", "España", 160);
+        assertEquals(Retorno.ok().resultado, ret.resultado);
+        ret = miSistema.crearAerolinea("Air France", "Francia", 10);
         assertEquals(Retorno.ok().resultado, ret.resultado);
         
-        Retorno ret2 = miSistema.registrarAvion("65RE3", 720, "American Airlines");
-        assertEquals(Retorno.ok().resultado, ret2.resultado);
-        
-        Retorno ret3 = miSistema.eliminarAvion("Aerolineas Argentinas", "65RE3");
-        assertEquals(Retorno.error1().resultado, ret3.resultado);
-         
-        Retorno ret4 = miSistema.eliminarAvion("American Airlines", "87QE3");
-        assertEquals(Retorno.error2().resultado,ret4.resultado);              
+        ret = miSistema.registrarAvion("65RE3", 720, "American Airlines");
+        assertEquals(Retorno.ok().resultado, ret.resultado);
+        ret = miSistema.registrarAvion("87SR3", 150, "Air France");
+        assertEquals(Retorno.ok().resultado, ret.resultado);
+        ret = miSistema.eliminarAvion("American Airlines", "65RE3");
+        assertEquals(Retorno.ok().resultado,ret.resultado);  
     }
     
+    public void eliminarAvionERROR1() {
+        Retorno ret = miSistema.crearAerolinea("American Airlines", "Estados Unidos", 20);
+        assertEquals(Retorno.ok().resultado, ret.resultado);
+        ret = miSistema.crearAerolinea("Iberia", "España", 160);
+        assertEquals(Retorno.ok().resultado, ret.resultado);
+        ret = miSistema.crearAerolinea("Air France", "Francia", 10);
+        assertEquals(Retorno.ok().resultado, ret.resultado);
+
+        ret = miSistema.registrarAvion("65RE3", 720, "American Airlines");
+        assertEquals(Retorno.ok().resultado, ret.resultado);
+        ret = miSistema.registrarAvion("87SR3", 150, "Air France");
+        assertEquals(Retorno.ok().resultado, ret.resultado);
+        ret = miSistema.eliminarAvion("United Airlines", "65RE3");
+        assertEquals(Retorno.error1().resultado,ret.resultado);  
+    }
     @Test
+    public void eliminarAvionERROR2() {
+        Retorno ret = miSistema.crearAerolinea("American Airlines", "Estados Unidos", 20);
+        assertEquals(Retorno.ok().resultado, ret.resultado);
+        ret = miSistema.crearAerolinea("Iberia", "España", 160);
+        assertEquals(Retorno.ok().resultado, ret.resultado);
+        ret = miSistema.crearAerolinea("Air France", "Francia", 10);
+        assertEquals(Retorno.ok().resultado, ret.resultado);
+        
+        ret = miSistema.registrarAvion("65RE3", 720, "American Airlines");
+        assertEquals(Retorno.ok().resultado, ret.resultado);
+        ret = miSistema.registrarAvion("87SR3", 150, "Air France");
+        assertEquals(Retorno.ok().resultado, ret.resultado);
+        ret = miSistema.eliminarAvion("American Airlines", "87QE3");
+        assertEquals(Retorno.error2().resultado,ret.resultado);              
+    }    
+
+    
+     @Test
     public void listarAerolineasOK() {
         Retorno ret1 = miSistema.crearAerolinea("American Airlines", "Estados Unidos", 20);
+        assertEquals(Retorno.ok().resultado, ret1.resultado);      
+        ret1 = miSistema.crearAerolinea("Iberia", "España", 70);
+        assertEquals(Retorno.ok().resultado, ret1.resultado);       
+        ret1 = miSistema.crearAerolinea("Aerolineas Argentinas", "Argentina", 80);
         assertEquals(Retorno.ok().resultado, ret1.resultado);
         
-        Retorno ret2 = miSistema.crearAerolinea("Iberia", "España", 70);
-        assertEquals(Retorno.ok().resultado, ret2.resultado);
-        
-        Retorno ret3 = miSistema.crearAerolinea("Aerolineas Argentinas", "Argentina", 80);
-        assertEquals(Retorno.ok().resultado, ret3.resultado);
-        
-        Retorno ret4 = miSistema.listarAerolineas();
-        assertEquals(Retorno.ok().resultado, ret4.resultado);
+        ret1 = miSistema.listarAerolineas();
+        assertEquals("Aerolineas Argentinas-Argentina-80|American Airlines-Estados Unidos-20|Iberia-España-70|", ret1.valorString);
     }
     
     @Test
     public void listarAvionesDeAerolineaOK() {
-        Retorno ret1 = miSistema.crearAerolinea("American Airlines", "Estados Unidos", 20);
-        assertEquals(Retorno.ok().resultado, ret1.resultado);
+        Retorno ret = miSistema.crearAerolinea("American Airlines", "Estados Unidos", 20);
+        assertEquals(Retorno.ok().resultado, ret.resultado);
+        ret = miSistema.crearAerolinea("Iberia", "España", 160);
+        assertEquals(Retorno.ok().resultado, ret.resultado);
+        ret = miSistema.crearAerolinea("Air France", "Francia", 10);
+        assertEquals(Retorno.ok().resultado, ret.resultado);
         
-        Retorno ret2 = miSistema.registrarAvion("65RE3", 720, "American Airlines");
-        assertEquals(Retorno.ok().resultado, ret2.resultado);
+        ret = miSistema.registrarAvion("65RE3", 720, "American Airlines");
+        assertEquals(Retorno.ok().resultado, ret.resultado);       
+        ret = miSistema.registrarAvion("45BI6", 150, "American Airlines");
+        assertEquals(Retorno.ok().resultado, ret.resultado);     
+        ret = miSistema.registrarAvion("87SR3", 150, "Air France");
+        assertEquals(Retorno.ok().resultado, ret.resultado);
+        ret = miSistema.registrarAvion("H8GE4", 720, "American Airlines");
+        assertEquals(Retorno.ok().resultado, ret.resultado);
         
-        Retorno ret3 = miSistema.registrarAvion("45BI6", 720, "American Airlines");
-        assertEquals(Retorno.ok().resultado, ret3.resultado);
-        
-        Retorno ret4 = miSistema.registrarAvion("H8GE4", 720, "American Airlines");
-        assertEquals(Retorno.ok().resultado, ret4.resultado);
-        
-        Retorno ret5 = miSistema.listarAvionesDeAerolinea("American Airlines");
-        assertEquals(Retorno.ok().resultado, ret5.resultado);
+        ret = miSistema.listarAvionesDeAerolinea("American Airlines");
+        assertEquals("H8GE4-720|45BI6-150|65RE3-720|", ret.valorString);
     }
     
     @Test
     public void listarAvionesDeAerolineaERROR() {
-        Retorno ret1 = miSistema.crearAerolinea("American Airlines", "Estados Unidos", 720);
-        assertEquals(Retorno.ok().resultado, ret1.resultado);
+        Retorno ret = miSistema.crearAerolinea("American Airlines", "Estados Unidos", 20);
+        assertEquals(Retorno.ok().resultado, ret.resultado);
+        ret = miSistema.crearAerolinea("Iberia", "España", 160);
+        assertEquals(Retorno.ok().resultado, ret.resultado);
+        ret = miSistema.crearAerolinea("Air France", "Francia", 10);
+        assertEquals(Retorno.ok().resultado, ret.resultado);
         
-        Retorno ret2 = miSistema.registrarAvion("65RE3", 720, "American Airlines");
-        assertEquals(Retorno.ok().resultado, ret2.resultado);
+        ret = miSistema.registrarAvion("65RE3", 720, "American Airlines");
+        assertEquals(Retorno.ok().resultado, ret.resultado);
         
-        Retorno ret3 = miSistema.registrarAvion("45BI6", 720, "American Airlines");
-        assertEquals(Retorno.ok().resultado, ret3.resultado);
+        ret = miSistema.registrarAvion("45BI6", 720, "American Airlines");
+        assertEquals(Retorno.ok().resultado, ret.resultado);
         
-        Retorno ret4 = miSistema.listarAvionesDeAerolinea("Air New Zealand ");
-        assertEquals(Retorno.error1().resultado, ret4.resultado);
+        ret = miSistema.listarAvionesDeAerolinea("Air New Zealand ");
+        assertEquals(Retorno.error1().resultado, ret.resultado);
     }
+    
+
     
     
 }
