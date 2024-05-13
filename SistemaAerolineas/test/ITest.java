@@ -1,6 +1,4 @@
 
-import clases.Avion;
-import clases.Vuelo;
 import sistemaAerolineas.Retorno;
 import sistemaAerolineas.Sistema;
 import org.junit.*;
@@ -128,18 +126,14 @@ public class ITest {
         Retorno ret = miSistema.crearAerolinea("American Airlines", "Estados Unidos", 20);
         assertEquals(Retorno.ok().resultado, ret.resultado);
         
-         Retorno ret2 = miSistema.registrarAvion("65RE3", 720, "American Airlines");
+        Retorno ret2 = miSistema.registrarAvion("65RE3", 720, "American Airlines");
         assertEquals(Retorno.ok().resultado, ret2.resultado);
         
         Retorno ret3 = miSistema.eliminarAvion("Aerolineas Argentinas", "65RE3");
-        assertEquals(Retorno.error1().resultado,ret3.resultado);
+        assertEquals(Retorno.error1().resultado, ret3.resultado);
          
         Retorno ret4 = miSistema.eliminarAvion("American Airlines", "87QE3");
-        assertEquals(Retorno.error2().resultado,ret4.resultado);
-        
-        //En caso de que tenga algún viaje con pasajes vendidos
-        
-        
+        assertEquals(Retorno.error2().resultado,ret4.resultado);              
     }
     
     @Test
@@ -177,7 +171,7 @@ public class ITest {
     
     @Test
     public void listarAvionesDeAerolineaERROR() {
-        Retorno ret1 = miSistema.crearAerolinea("American Airlines", "Estados Unidos", 20);
+        Retorno ret1 = miSistema.crearAerolinea("American Airlines", "Estados Unidos", 720);
         assertEquals(Retorno.ok().resultado, ret1.resultado);
         
         Retorno ret2 = miSistema.registrarAvion("65RE3", 720, "American Airlines");
@@ -186,7 +180,7 @@ public class ITest {
         Retorno ret3 = miSistema.registrarAvion("45BI6", 720, "American Airlines");
         assertEquals(Retorno.ok().resultado, ret3.resultado);
         
-        Retorno ret4 = miSistema.registrarAvion("H8GE4", 720, "Air New Zealand ");
+        Retorno ret4 = miSistema.listarAvionesDeAerolinea("Air New Zealand ");
         assertEquals(Retorno.error1().resultado, ret4.resultado);
     }
     

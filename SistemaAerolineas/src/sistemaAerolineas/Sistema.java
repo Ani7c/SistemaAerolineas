@@ -96,8 +96,7 @@ public class Sistema implements IObligatorio {
         Avion avion = new Avion();
         avion.setCodigo(codAvion);
         
-        if (!listaAerolineas.existeElemento(aerolinea)) { // En caso de que no exista la aerolínea. 
-            
+        if (!listaAerolineas.existeElemento(aerolinea)) { // En caso de que no exista la aerolínea.        
             return Retorno.error1();
         }
         Aerolinea aerolineaBuscada = listaAerolineas.obtenerElemento(aerolinea);
@@ -167,11 +166,11 @@ public class Sistema implements IObligatorio {
         Retorno ret = new Retorno(Retorno.Resultado.OK);
         Aerolinea aBusq = new Aerolinea();
         aBusq.setNombre(nombre);
-        Aerolinea aerolinea = listaAerolineas.obtenerElemento(aBusq);
         
-        if (aerolinea == null) {
+        if (!listaAerolineas.existeElemento(aBusq)) {
             return Retorno.error1();
         } else {
+            Aerolinea aerolinea = listaAerolineas.obtenerElemento(aBusq);
             Nodo<Avion> nodoAvion = aerolinea.getAviones().getInicio();
             ret.valorString = "";
             while(nodoAvion!=null) {
