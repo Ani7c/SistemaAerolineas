@@ -24,7 +24,11 @@ public class Aerolinea implements Comparable<Aerolinea>{
         this.CantMaxAviones = CantMaxAviones;
         this.listaAviones = new Lista<Avion>();
     }
-    
+
+    public Aerolinea(String nomAerolinea) {
+        this.Nombre = nomAerolinea;
+    }
+
     public String getNombre() {
         return Nombre;
     }

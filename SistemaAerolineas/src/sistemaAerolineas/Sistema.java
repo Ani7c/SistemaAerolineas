@@ -109,11 +109,8 @@ public class Sistema implements IObligatorio {
     
     @Override
     public Retorno eliminarAvion(String nomAerolinea, String codAvion) {
-        Aerolinea aerolinea = new Aerolinea();
-        aerolinea.setNombre(nomAerolinea);
-        
-        Avion avion = new Avion();
-        avion.setCodigo(codAvion);
+        Aerolinea aerolinea = new Aerolinea(nomAerolinea); 
+        Avion avion = new Avion(codAvion);
         
         if (!listaAerolineas.existeElemento(aerolinea)) { // En caso de que no exista la aerolínea.        
             return Retorno.error1();
@@ -147,7 +144,23 @@ public class Sistema implements IObligatorio {
     @Override
     //no se hace
     public Retorno registrarCliente(String pasaporte, String nombre, int edad) {
-        return Retorno.noImplementada();
+        if (edad < 0) {
+        //1.- En caso de que la edad sea < 0
+            return Retorno.error1();
+        } else if (pasaporte.length() != 7){
+        //2.- En caso de que el número de pasaporte sea <> a 7 caracteres.
+            return Retorno.error2();
+        } else {
+        //3.- En caso de que ya exista un cliente con dicho pasaporte
+            Cliente nuevoCliente = new Cliente(pasaporte, nombre, edad);
+            if(listaClientes.existeElemento(nuevoCliente)) {
+                return Retorno.error3();
+            } else {
+                listaClientes.agregarInicio(nuevoCliente);
+                return Retorno.ok();
+            }
+        }
+        
     }
 
     @Override

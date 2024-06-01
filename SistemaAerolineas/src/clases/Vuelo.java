@@ -10,8 +10,8 @@ import tads.Lista;
  */
 public class Vuelo implements Comparable<Vuelo>{  
     private String CodigoVuelo;
-    private String Aerolinea;
-    private String CodAvion;
+    private Aerolinea Aerolinea;
+    private Avion Avion;
     private String PaisDestino;
     public int Dia;
     public int Mes;
@@ -22,10 +22,10 @@ public class Vuelo implements Comparable<Vuelo>{
 
     public Vuelo(){}
     
-    public Vuelo(String CodigoVuelo, String Aerolinea, String CodAvion, String PaisDestino, int Dia, int Mes, int Año, int CantPasajesEcon, int CantPasajesPClase) {
+    public Vuelo(String CodigoVuelo, Aerolinea Aerolinea, Avion Avion, String PaisDestino, int Dia, int Mes, int Año, int CantPasajesEcon, int CantPasajesPClase) {
         this.CodigoVuelo = CodigoVuelo;
         this.Aerolinea = Aerolinea;
-        this.CodAvion = CodAvion;
+        this.Avion = Avion;
         this.PaisDestino = PaisDestino;
         this.Dia = Dia;
         this.Mes = Mes;
@@ -38,12 +38,12 @@ public class Vuelo implements Comparable<Vuelo>{
         return this.CodigoVuelo;
     }
     
-    public String getAerolinea() {
+    public Aerolinea getAerolinea() {
         return this.Aerolinea;
     }
     
-    public String getCodAvion() {
-        return this.CodAvion;
+    public Avion getAvion() {
+        return this.Avion;
     }
     
     public String getPaisDestino() {

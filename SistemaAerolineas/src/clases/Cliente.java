@@ -21,6 +21,10 @@ public class Cliente implements Comparable<Cliente> {
         this.Nombre = Nombre;
         this.Edad = Edad;
     }
+
+    public Cliente(String pasaporte) {
+        this.Pasaporte = pasaporte;
+    }
     
     public String getPasaporte() {
         return Pasaporte;

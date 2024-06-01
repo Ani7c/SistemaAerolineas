@@ -13,16 +13,20 @@ import tads.Lista;
 public class Avion implements Comparable<Avion>{
     private String Codigo;
     private int CapacidadMax;
-    private String NomAerolinea;
+    private Aerolinea Aerolinea;
     private Lista<Vuelo> listaVuelos;
     
     public Avion(){};
 
-    public Avion(String Codigo, int CapacidadMax, String NomAerolinea) {
+    public Avion(String Codigo, int CapacidadMax, Aerolinea Aerolinea) {
         this.Codigo = Codigo;
         this.CapacidadMax = CapacidadMax;
-        this.NomAerolinea = NomAerolinea;
+        this.Aerolinea = Aerolinea;
         this.listaVuelos = new Lista<Vuelo>();
+    }
+
+    public Avion(String codAvion) {
+        this.Codigo = codAvion;
     }
     
     public String getCodigo() {
@@ -33,8 +37,8 @@ public class Avion implements Comparable<Avion>{
         return CapacidadMax;
     }
     
-    public String getNomAerolinea() {
-        return NomAerolinea;
+    public Aerolinea getAerolinea() {
+        return Aerolinea;
     }
     
     public void setCodigo(String codigo) {
@@ -45,8 +49,8 @@ public class Avion implements Comparable<Avion>{
         this.CapacidadMax = capacidadMax;
     }
     
-    public void setNomAerolinea(String nomAerolinea) {
-        this.NomAerolinea = nomAerolinea;
+    public void setAerolinea(Aerolinea Aerolinea) {
+        this.Aerolinea = Aerolinea;
     }
     
     public Lista<Vuelo> getListaVuelos() {
