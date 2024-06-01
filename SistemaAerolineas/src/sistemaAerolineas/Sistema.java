@@ -60,32 +60,51 @@ public class Sistema implements IObligatorio {
 
  @Override
     public Retorno registrarAvion(String codigo, int capacidadMax, String nomAerolinea) {
-        Avion avion = new Avion(codigo, capacidadMax, nomAerolinea);
-        
-        Aerolinea aBuscar = new Aerolinea();
-        aBuscar.setNombre(nomAerolinea);
-        
-        //Si no existe la aerolínea
-        if(!listaAerolineas.existeElemento(aBuscar)) {
+        Aerolinea aeroBuscada = new Aerolinea(nomAerolinea);
+        if(!listaAerolineas.existeElemento(aeroBuscada)) {
+            //Si no existe la aerolínea
             return Retorno.error3();
-        }        
-        
-        Aerolinea aerolinea = listaAerolineas.obtenerElemento(aBuscar);
-        
-        //En caso de que ya exista dicho código de avión en la aerolínea.
-        if (aerolinea.getAviones().existeElemento(avion)) {
-            return Retorno.error1();
-        }
-        
-        //Si la capacidad máxima es < que 9 pasajeros o no es múltiplo de 3.
-        if (capacidadMax < 9 || (capacidadMax % 3) != 0) {
+        } else if(capacidadMax < 9 || (capacidadMax % 3) != 0){
+            //Si la capacidad máxima es < que 9 pasajeros o no es múltiplo de 3.
             return Retorno.error2();
-        }      
-        
+        } else {
+            //En caso de que ya exista dicho código de avión en la aerolínea.
+            Aerolinea aerolinea = listaAerolineas.obtenerElemento(aeroBuscada);
+            Avion avion = new Avion(codigo, capacidadMax, aerolinea);
+            if (aerolinea.getAviones().existeElemento(avion)) {
+                return Retorno.error1();
+        }
         aerolinea.setAviones(avion);
         listaAviones.agregarInicio(avion);
         
         return Retorno.ok();
+//        Avion avion = new Avion(codigo, capacidadMax, nomAerolinea);
+//        
+//        Aerolinea aBuscar = new Aerolinea();
+//        aBuscar.setNombre(nomAerolinea);
+//        
+//        //Si no existe la aerolínea
+//        if(!listaAerolineas.existeElemento(aBuscar)) {
+//            return Retorno.error3();
+//        }        
+//        
+//        Aerolinea aerolinea = listaAerolineas.obtenerElemento(aBuscar);
+//        
+//        //En caso de que ya exista dicho código de avión en la aerolínea.
+//        if (aerolinea.getAviones().existeElemento(avion)) {
+//            return Retorno.error1();
+//        }
+//        
+//        //Si la capacidad máxima es < que 9 pasajeros o no es múltiplo de 3.
+//        if (capacidadMax < 9 || (capacidadMax % 3) != 0) {
+//            return Retorno.error2();
+//        }      
+//        
+//        aerolinea.setAviones(avion);
+//        listaAviones.agregarInicio(avion);
+//        
+//        return Retorno.ok();
+        }
     }
     
     @Override
