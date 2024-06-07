@@ -65,7 +65,7 @@ public class Sistema implements IObligatorio {
             //Si no existe la aerolínea
             return Retorno.error3();
         } else if(capacidadMax < 9 || (capacidadMax % 3) != 0){
-            //Si la capacidad máxima es < que 9 pasajeros o no es múltiplo de 3.
+            //Si la capacidad máxima es > que 9 pasajeros o no es múltiplo de 3.
             return Retorno.error2();
         } else {
             //En caso de que ya exista dicho código de avión en la aerolínea.
@@ -164,14 +164,70 @@ public class Sistema implements IObligatorio {
     }
 
     @Override
-    //no se hace
     public Retorno crearVuelo(String codigoVuelo, String aerolinea, String codAvion, String paisDestino, int dia, int mes, int año, int cantPasajesEcon, int cantPasajesPClase) {
-        return Retorno.noImplementada();
+//Descripción: Se crea el vuelo en el sistema. Todos los vuelos salen en un único horario (no será necesario verificar la correctitud
+//de la fecha ingresada). Se deberá indicar cuantos pasajes de categoría económica (tipo 1) y cuantos de primera clase (tipo 2) se
+//ponen a la venta. Las cantidades de cada categoría de pasaje debe ser >=3 y múltiplo de 3. En caso de que la suma de la cantidad
+//de pasajes de ambas categorías no cubra el total de pasajes disponibles, se completará el vuelo con pasajes de categoría
+//económica hasta cubrir el total de capacidad del avión.
+//Retornos posibles
+    
+//ERROR 1.
+    Vuelo nuevoVuelo = new Vuelo(codigoVuelo);
+    if(listaVuelos.existeElemento(nuevoVuelo)) {
+//1. -En caso de que ya exista el código de vuelo en el sistema
+        return Retorno.error1();
+    } else if(listaAerolineas.existeElemento(new Aerolinea(aerolinea))){
+//2. - En caso de que la aerolínea no exista en el sistema.
+        return Retorno.error2();
+    } else {
+        Aerolinea aerolineaBuscada = listaAerolineas.obtenerElemento(new Aerolinea(aerolinea));
+        if(!aerolineaBuscada.getAviones().existeElemento(new Avion(codAvion))) {
+//3.- En caso de que el código de avión no exista dentro de la aerolínea.
+            return Retorno.error3();
+        } else {
+////4 - En caso de que ya exista un vuelo creado para ese avión en dicha fecha.
+            Nodo<Vuelo> actual = listaVuelos.getInicio();
+            while (actual != null) {
+                Vuelo vuelo = actual.getDato();
+                Avion avionBuscado = new Avion(codAvion);
+                if (vuelo.getAvion().equals(avionBuscado) && vuelo.mismaFecha(dia, mes, año)) {
+                    return Retorno.error4(); // Ya existe un vuelo para ese avión en esa fecha
+                }
+                actual = actual.getSiguiente();
+            }
+        }
+//5 – En caso de que las cantidades de pasajes (de cualquiera de las categorías) no sea
+//múltiplo de 3.
+        if (cantPasajesEcon < 3 || cantPasajesPClase < 3 || cantPasajesEcon % 3 != 0 || cantPasajesPClase % 3 != 0) {
+            return Retorno.error5();
+        }  
+//6 - En caso de que la suma de los pasajes de ambas categorías supere la cant. máxima
+//permitida por el avión.
+        Avion aBuscado = listaAviones.obtenerElemento(new Avion(codAvion));
+        if((cantPasajesEcon + cantPasajesPClase) > aBuscado.getCapacidadMax()){
+            return Retorno.error6();
+        }
+    }  
+    return Retorno.ok();
+
+    
     }
+
 
     @Override
     public Retorno comprarPasaje(String pasaporteCliente, String codigoVuelo, int categoríaPasaje) {
-        return Retorno.noImplementada();
+//Descripción: En caso de existir disponibilidad para dicha categoría (1-económica, 2-Primera Clase), se emite el pasaje para dicho
+//cliente. En caso de no existir disponibilidad para la categoría seleccionada, la emisión del pasaje quedará en estado pendiente a
+//la espera de una posible devolución de un cliente para la categoría buscada. En dicho caso se respetará el orden de la lista de
+//espera para el otorgamiento de pasajes devueltos.
+//Retornos posibles
+//OK Si se pudo emitir el pasaje
+//1.- En caso de que el pasaporte del cliente no exista
+        
+//2.- En caso de que el código de vuelo no exista
+
+    
     }
 
     @Override

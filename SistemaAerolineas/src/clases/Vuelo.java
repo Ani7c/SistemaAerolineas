@@ -33,6 +33,10 @@ public class Vuelo implements Comparable<Vuelo>{
         this.CantPasajesEcon = CantPasajesEcon;
         this.CantPasajesPClase = CantPasajesPClase;
     }
+
+    public Vuelo(String codigoVuelo) {
+        this.CodigoVuelo = codigoVuelo;
+    }
     
     public String getCodVuelo() {
         return this.CodigoVuelo;
@@ -59,5 +63,9 @@ public class Vuelo implements Comparable<Vuelo>{
     @Override
     public int compareTo(Vuelo o) {
         return this.getCodVuelo().compareTo(o.getCodVuelo()); // Comparar los códigos normalmente
+    }
+    
+    public boolean mismaFecha(int dia, int mes, int año) {
+        return this.Dia == dia && this.Mes == mes && this.Año == año;
     }
 }
