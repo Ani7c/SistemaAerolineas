@@ -58,6 +58,7 @@ public class Vuelo implements Comparable<Vuelo>{
         return this.pasajesVendidos;
     }
      
+    
     //mejorar fecha
 
     @Override
@@ -67,5 +68,32 @@ public class Vuelo implements Comparable<Vuelo>{
     
     public boolean mismaFecha(int dia, int mes, int año) {
         return this.Dia == dia && this.Mes == mes && this.Año == año;
+    }
+
+    public void setDestino(String paisDestino) {
+        this.PaisDestino = paisDestino;
+    }
+
+    public void setFecha(int dia, int mes, int año) {
+        this.Dia = dia;
+        this.Mes = mes;
+        this.Año = año;
+                
+    }
+
+    public void setCantPasajesEcon(int cantPasajesEcon) {
+        this.CantPasajesEcon = cantPasajesEcon;
+    }
+
+    public void setCantPasajesPClase(int cantPasajesPClase) {
+        this.CantPasajesPClase = cantPasajesPClase;
+    }
+
+    public void setAerolinea(Aerolinea aerolinea) {
+        this.Aerolinea = aerolinea;
+    }
+
+    public void setAvion(Avion avion) {
+        this.Avion = avion;
     }
 }

@@ -208,7 +208,16 @@ public class Sistema implements IObligatorio {
         if((cantPasajesEcon + cantPasajesPClase) > aBuscado.getCapacidadMax()){
             return Retorno.error6();
         }
+        nuevoVuelo.setAerolinea(aerolineaBuscada);
+        nuevoVuelo.setAvion(aBuscado);
+        nuevoVuelo.setDestino(paisDestino);
+        nuevoVuelo.setFecha(dia, mes, año);
+        nuevoVuelo.setCantPasajesEcon(cantPasajesEcon);
+        nuevoVuelo.setCantPasajesPClase(cantPasajesPClase);
     }  
+    
+    listaVuelos.agregarFinal(nuevoVuelo);
+    
     return Retorno.ok();
 
     
@@ -227,7 +236,7 @@ public class Sistema implements IObligatorio {
         
 //2.- En caso de que el código de vuelo no exista
 
-    
+        return Retorno.ok();
     }
 
     @Override
