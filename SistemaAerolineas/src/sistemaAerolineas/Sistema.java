@@ -268,6 +268,8 @@ public class Sistema implements IObligatorio {
     @Override
     public Retorno devolverPasaje(String pasaporteCliente, String codigoVuelo) {
         return Retorno.noImplementada();
+        //ese pasaje --> setEstado "DEV"
+        //creamos uno nuevo a pasaporteCliente
     }
 
       @Override
