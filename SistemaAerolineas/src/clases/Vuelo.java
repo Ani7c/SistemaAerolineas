@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package clases;
+import tads.Cola;
 import tads.Lista;
 /**
  *
@@ -19,6 +20,9 @@ public class Vuelo implements Comparable<Vuelo>{
     public int CantPasajesEcon;
     public int CantPasajesPClase;
     private Lista<Pasaje> pasajesVendidos;
+    private Cola<Cliente> colaEconomica;
+    private Cola<Cliente> colaPClase;
+
 
     public Vuelo(){}
     
@@ -32,8 +36,22 @@ public class Vuelo implements Comparable<Vuelo>{
         this.Año = Año;
         this.CantPasajesEcon = CantPasajesEcon;
         this.CantPasajesPClase = CantPasajesPClase;
+        this.pasajesVendidos = new Lista<Pasaje>();
+        this.colaEconomica = new Cola<Cliente>();
+        this.colaPClase = new Cola<Cliente>();
+        
     }
-
+    public void setPasajeVendido(Pasaje pasaje){
+        this.pasajesVendidos.agregarInicio(pasaje);
+    }
+    
+    public void agregarAListaDeEsperaEcon(Cliente cliente){
+        this.colaEconomica.encolar(cliente);
+    }
+    public void agregarAListaDeEsperaPClase(Cliente cliente){
+         this.colaPClase.encolar(cliente);
+    }
+ 
     public Vuelo(String codigoVuelo) {
         this.CodigoVuelo = codigoVuelo;
     }

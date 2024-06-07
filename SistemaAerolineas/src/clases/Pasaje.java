@@ -9,16 +9,19 @@ package clases;
  * @author anita
  */
 public class Pasaje implements Comparable<Pasaje>{
-    public String PasaporteCliente;
-    public String CodigoVuelo;
-    public int CategoríaPasaje;
+    private String PasaporteCliente;
+    private String CodigoVuelo;
+    private int CategoriaPasaje;
+    private String EstadoPasaje;
+    
     
     public Pasaje(){}
     
-    public Pasaje(String pasaporteCliente, String codigoVuelo, int categoríaPasaje) {
+    public Pasaje(String pasaporteCliente, String codigoVuelo, int categoriaPasaje) {
         this.PasaporteCliente = pasaporteCliente;
         this.CodigoVuelo = codigoVuelo;
-        this.CategoríaPasaje = categoríaPasaje;
+        this.CategoriaPasaje = categoriaPasaje;  
+        this.EstadoPasaje = "CPR";
     }
 
     public String getCodVuelo() {
@@ -27,6 +30,18 @@ public class Pasaje implements Comparable<Pasaje>{
     
     public String getPasaporte() {
         return PasaporteCliente;
+    }
+    
+    public String getEstado() {
+        return EstadoPasaje;
+    }
+    
+    public int getCategoria() {
+        return CategoriaPasaje;
+    }
+    
+    public void setEstado(String estado){
+        this.EstadoPasaje = estado;
     }
     
     @Override

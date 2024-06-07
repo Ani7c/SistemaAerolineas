@@ -4,6 +4,8 @@
  */
 package clases;
 
+import tads.Lista;
+
 /**
  *
  * @author anita
@@ -13,6 +15,7 @@ public class Cliente implements Comparable<Cliente> {
     private String Pasaporte;
     private String Nombre;
     private int Edad;
+    private Lista<Pasaje> PasajesCliente;
     
     public Cliente(){}
 
@@ -20,10 +23,20 @@ public class Cliente implements Comparable<Cliente> {
         this.Pasaporte = Pasaporte;
         this.Nombre = Nombre;
         this.Edad = Edad;
+        this.PasajesCliente = new Lista<Pasaje>();
+
     }
 
     public Cliente(String pasaporte) {
         this.Pasaporte = pasaporte;
+    }
+    
+    public void setPasajesCliente(Pasaje pasaje) {
+        this.PasajesCliente.agregarFinal(pasaje);
+    }
+    
+    public Lista<Pasaje> getPasajes() {
+        return PasajesCliente;
     }
     
     public String getPasaporte() {

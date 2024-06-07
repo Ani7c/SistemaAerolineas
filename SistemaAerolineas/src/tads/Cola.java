@@ -12,6 +12,14 @@ public class Cola<T extends Comparable<T>> implements ICola<T> {
         cantidad = 0;
     }
 
+    public Cola() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    public Cola() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
     @Override
     public void encolar(T dato) {
         Nodo<T> nuevoNodo = new Nodo(dato);

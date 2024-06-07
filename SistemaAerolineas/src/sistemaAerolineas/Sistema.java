@@ -233,6 +233,32 @@ public class Sistema implements IObligatorio {
 //Retornos posibles
 //OK Si se pudo emitir el pasaje
 //1.- En caso de que el pasaporte del cliente no exista
+        Cliente cliBuscado = listaClientes.obtenerElemento(new Cliente(pasaporteCliente));
+        Vuelo vueloBuscado = listaVuelos.obtenerElemento(new Vuelo(codigoVuelo));
+        if(cliBuscado == null){
+            return Retorno.error1();
+        } else if(vueloBuscado == null){
+            return Retorno.error2();
+        }
+        
+        if((categoríaPasaje ==1 && vueloBuscado.CantPasajesEcon > 0) || (categoríaPasaje ==2 && vueloBuscado.CantPasajesPClase > 0)) {
+            Pasaje pasajeNuevo = new Pasaje(pasaporteCliente, codigoVuelo, categoríaPasaje);
+            listaPasajes.agregarFinal(pasajeNuevo);
+            cliBuscado.setPasajesCliente(pasajeNuevo);  
+            vueloBuscado.setPasajeVendido(pasajeNuevo);
+            if(categoríaPasaje ==1 ){
+                vueloBuscado.CantPasajesEcon--;
+            } else if(categoríaPasaje ==2){
+                vueloBuscado.CantPasajesPClase--;
+            }
+        } else {
+            if(categoríaPasaje ==1 ){
+                vueloBuscado.agregarAListaDeEsperaEcon(cliBuscado);
+            } else if(categoríaPasaje ==2){
+                vueloBuscado.agregarAListaDeEsperaPClase(cliBuscado);
+            }
+        }
+                
         
 //2.- En caso de que el código de vuelo no exista
 
