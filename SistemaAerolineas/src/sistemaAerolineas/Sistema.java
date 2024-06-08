@@ -172,21 +172,21 @@ public class Sistema implements IObligatorio {
 //económica hasta cubrir el total de capacidad del avión.
 //Retornos posibles
 
-//ERROR 1.
+        //ERROR 1.
         Vuelo nuevoVuelo = new Vuelo(codigoVuelo);
         if (listaVuelos.existeElemento(nuevoVuelo)) {
-//1. -En caso de que ya exista el código de vuelo en el sistema
+        //1. -En caso de que ya exista el código de vuelo en el sistema
             return Retorno.error1();
-        } else if (listaAerolineas.existeElemento(new Aerolinea(aerolinea))) {
-//2. - En caso de que la aerolínea no exista en el sistema.
+        } else if (!listaAerolineas.existeElemento(new Aerolinea(aerolinea))) {
+        //2. - En caso de que la aerolínea no exista en el sistema.
             return Retorno.error2();
         } else {
             Aerolinea aerolineaBuscada = listaAerolineas.obtenerElemento(new Aerolinea(aerolinea));
             if (!aerolineaBuscada.getAviones().existeElemento(new Avion(codAvion))) {
-//3.- En caso de que el código de avión no exista dentro de la aerolínea.
+        //3.- En caso de que el código de avión no exista dentro de la aerolínea.
                 return Retorno.error3();
             } else {
-////4 - En caso de que ya exista un vuelo creado para ese avión en dicha fecha.
+        //4 - En caso de que ya exista un vuelo creado para ese avión en dicha fecha.
                 Nodo<Vuelo> actual = listaVuelos.getInicio();
                 while (actual != null) {
                     Vuelo vuelo = actual.getDato();
@@ -197,13 +197,11 @@ public class Sistema implements IObligatorio {
                     actual = actual.getSiguiente();
                 }
             }
-//5 – En caso de que las cantidades de pasajes (de cualquiera de las categorías) no sea
-//múltiplo de 3.
+            //5 – En caso de que las cantidades de pasajes (de cualquiera de las categorías) no sea múltiplo de 3.
             if (cantPasajesEcon < 3 || cantPasajesPClase < 3 || cantPasajesEcon % 3 != 0 || cantPasajesPClase % 3 != 0) {
                 return Retorno.error5();
             }
-//6 - En caso de que la suma de los pasajes de ambas categorías supere la cant. máxima
-//permitida por el avión.
+            //6 - En caso de que la suma de los pasajes de ambas categorías supere la cant. máxima permitida por el avión.
             Avion aBuscado = listaAviones.obtenerElemento(new Avion(codAvion));
             if ((cantPasajesEcon + cantPasajesPClase) > aBuscado.getCapacidadMax()) {
                 return Retorno.error6();
@@ -231,8 +229,12 @@ public class Sistema implements IObligatorio {
 //Retornos posibles
 //OK Si se pudo emitir el pasaje
 //1.- En caso de que el pasaporte del cliente no exista
-        Cliente cliBuscado = listaClientes.obtenerElemento(new Cliente(pasaporteCliente));
-        Vuelo vueloBuscado = listaVuelos.obtenerElemento(new Vuelo(codigoVuelo));
+        Cliente cliBuscado = new Cliente(pasaporteCliente);
+        cliBuscado = listaClientes.obtenerElemento(cliBuscado);
+        
+        Vuelo vueloBuscado = new Vuelo(codigoVuelo);
+        vueloBuscado = listaVuelos.obtenerElemento(vueloBuscado);
+        
         if (cliBuscado == null) {
             return Retorno.error1();
         } else if (vueloBuscado == null) {
