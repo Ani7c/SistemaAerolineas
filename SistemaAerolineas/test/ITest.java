@@ -5,12 +5,12 @@ import org.junit.*;
 import static org.junit.Assert.*;
 
 public class ITest {
-    
+
     private sistemaAerolineas.Sistema miSistema;
-    
+
     public ITest() {
     }
-    
+
     @Before
     public void setUp() {
         miSistema = new Sistema();
@@ -310,26 +310,27 @@ public class ITest {
 //    }
 //    
 //    
+
     @Test
     public void crearVueloOK() {
         Retorno ret = miSistema.crearAerolinea("Iberia", "España", 160);
         assertEquals(Retorno.ok().resultado, ret.resultado);
-        
+
         ret = miSistema.registrarAvion("45BI6", 720, "Iberia");
         assertEquals(Retorno.ok().resultado, ret.resultado);
-        
+
         ret = miSistema.registrarAvion("H8VR9", 723, "Iberia");
         assertEquals(Retorno.ok().resultado, ret.resultado);
-        
+
         ret = miSistema.registrarAvion("H6VU9", 723, "Iberia");
         assertEquals(Retorno.ok().resultado, ret.resultado);
-        
+
         ret = miSistema.crearVuelo("123HJK", "Iberia", "45BI6", "España", 10, 12, 2024, 9, 6);
         assertEquals(Retorno.ok().resultado, ret.resultado);
-        
+
         ret = miSistema.crearVuelo("193HDK", "Iberia", "H8VR9", "Uruguay", 12, 02, 2025, 9, 6);
         assertEquals(Retorno.ok().resultado, ret.resultado);
-        
+
     }
 //    
 //    @Test
@@ -356,239 +357,418 @@ public class ITest {
 //        assertEquals(Retorno.error1().resultado, ret.resultado);
 //        
 //    }
-    
+
     @Test
     public void crearVueloError2() {
         Retorno ret = miSistema.crearAerolinea("Iberia", "España", 160);
         assertEquals(Retorno.ok().resultado, ret.resultado);
-        
+
         ret = miSistema.registrarAvion("45BI6", 720, "Iberia");
         assertEquals(Retorno.ok().resultado, ret.resultado);
-        
+
         ret = miSistema.registrarAvion("H8VR9", 723, "Iberia");
         assertEquals(Retorno.ok().resultado, ret.resultado);
-        
+
         ret = miSistema.registrarAvion("H6VU9", 723, "Iberia");
         assertEquals(Retorno.ok().resultado, ret.resultado);
-        
+
         ret = miSistema.crearVuelo("123HJK", "American Airlines", "45BI6", "España", 10, 12, 2024, 9, 6);
         assertEquals(Retorno.error2().resultado, ret.resultado);
-        
+
         ret = miSistema.crearVuelo("193HDK", "GOL", "H8VR9", "Uruguay", 12, 02, 2025, 9, 6);
         assertEquals(Retorno.error2().resultado, ret.resultado);
-        
+
     }
-    
+
     @Test
     public void crearVueloError3() {
         Retorno ret = miSistema.crearAerolinea("Iberia", "España", 160);
         assertEquals(Retorno.ok().resultado, ret.resultado);
-        
+
         ret = miSistema.registrarAvion("45BI6", 720, "Iberia");
         assertEquals(Retorno.ok().resultado, ret.resultado);
-        
+
         ret = miSistema.registrarAvion("H8VR9", 723, "Iberia");
         assertEquals(Retorno.ok().resultado, ret.resultado);
-        
+
         ret = miSistema.registrarAvion("H6VU9", 723, "Iberia");
         assertEquals(Retorno.ok().resultado, ret.resultado);
-        
+
         ret = miSistema.crearVuelo("123HJK", "Iberia", "45BI6", "España", 10, 12, 2024, 9, 6);
         assertEquals(Retorno.ok().resultado, ret.resultado);
-        
+
         ret = miSistema.crearVuelo("193HDK", "Iberia", "P8VR9", "Uruguay", 12, 02, 2025, 9, 6);
         assertEquals(Retorno.error3().resultado, ret.resultado);
     }
-    
+
     @Test
     public void crearVueloError4() {
         Retorno ret = miSistema.crearAerolinea("Iberia", "España", 160);
         assertEquals(Retorno.ok().resultado, ret.resultado);
-        
+
         ret = miSistema.registrarAvion("45BI6", 720, "Iberia");
         assertEquals(Retorno.ok().resultado, ret.resultado);
-        
+
         ret = miSistema.registrarAvion("H8VR9", 723, "Iberia");
         assertEquals(Retorno.ok().resultado, ret.resultado);
-        
+
         ret = miSistema.registrarAvion("H6VU9", 723, "Iberia");
         assertEquals(Retorno.ok().resultado, ret.resultado);
-        
+
         ret = miSistema.crearVuelo("123HJK", "Iberia", "H8VR9", "España", 10, 12, 2024, 9, 6);
         assertEquals(Retorno.ok().resultado, ret.resultado);
-        
+
         ret = miSistema.crearVuelo("193HDK", "Iberia", "H8VR9", "Uruguay", 10, 12, 2024, 9, 6);
         assertEquals(Retorno.error4().resultado, ret.resultado);
     }
-    
+
     @Test
     public void crearVueloError5() {
         Retorno ret = miSistema.crearAerolinea("Iberia", "España", 160);
         assertEquals(Retorno.ok().resultado, ret.resultado);
-        
+
         ret = miSistema.registrarAvion("45BI6", 720, "Iberia");
         assertEquals(Retorno.ok().resultado, ret.resultado);
-        
+
         ret = miSistema.registrarAvion("H8VR9", 723, "Iberia");
         assertEquals(Retorno.ok().resultado, ret.resultado);
-        
+
         ret = miSistema.registrarAvion("H6VU9", 723, "Iberia");
         assertEquals(Retorno.ok().resultado, ret.resultado);
-        
+
         ret = miSistema.crearVuelo("123HJK", "Iberia", "45BI6", "España", 10, 12, 2024, 10, 6);
         assertEquals(Retorno.error5().resultado, ret.resultado);
-        
+
         ret = miSistema.crearVuelo("193HDK", "Iberia", "H8VR9", "Uruguay", 12, 02, 2025, 9, 7);
         assertEquals(Retorno.error5().resultado, ret.resultado);
-        
+
         ret = miSistema.crearVuelo("193HDK", "Iberia", "H8VR9", "Uruguay", 12, 02, 2025, 10, 7);
-        assertEquals(Retorno.error5().resultado, ret.resultado);      
+        assertEquals(Retorno.error5().resultado, ret.resultado);
     }
-    
+
     @Test
     public void crearVueloError6() {
         Retorno ret = miSistema.crearAerolinea("Iberia", "España", 160);
         assertEquals(Retorno.ok().resultado, ret.resultado);
-        
+
         ret = miSistema.registrarAvion("45BI6", 15, "Iberia");
         assertEquals(Retorno.ok().resultado, ret.resultado);
-        
+
         ret = miSistema.registrarAvion("H8VR9", 15, "Iberia");
         assertEquals(Retorno.ok().resultado, ret.resultado);
-        
+
         ret = miSistema.registrarAvion("H6VU9", 15, "Iberia");
         assertEquals(Retorno.ok().resultado, ret.resultado);
-        
+
         ret = miSistema.crearVuelo("123HJK", "Iberia", "45BI6", "España", 10, 12, 2024, 12, 6);
         assertEquals(Retorno.error6().resultado, ret.resultado);
-        
+
         ret = miSistema.crearVuelo("193HDK", "Iberia", "H8VR9", "Uruguay", 12, 02, 2025, 9, 9);
         assertEquals(Retorno.error6().resultado, ret.resultado);
-        
+
         ret = miSistema.crearVuelo("193HDK", "Iberia", "H6VU9", "Uruguay", 12, 02, 2025, 12, 9);
         assertEquals(Retorno.error6().resultado, ret.resultado);
-        
+
     }
-    
+
     @Test
-        public void comprarPasajeOK() {
+    public void comprarPasajeOK() {
         Retorno ret = miSistema.crearAerolinea("Iberia", "España", 160);
         assertEquals(Retorno.ok().resultado, ret.resultado);
-        
+
         ret = miSistema.registrarAvion("45BI6", 720, "Iberia");
         assertEquals(Retorno.ok().resultado, ret.resultado);
-                
+
         ret = miSistema.crearVuelo("123HJK", "Iberia", "45BI6", "España", 10, 12, 2024, 9, 6);
         assertEquals(Retorno.ok().resultado, ret.resultado);
-        
+
         ret = miSistema.registrarCliente("J784HJA", "Joaquin", 40);
         assertEquals(Retorno.ok().resultado, ret.resultado);
-              
+
         ret = miSistema.comprarPasaje("J784HJA", "123HJK", 1);
-        assertEquals(Retorno.ok().resultado, ret.resultado);      
+        assertEquals(Retorno.ok().resultado, ret.resultado);
     }
-        
+
     @Test
     public void comprarPasajeError1() {
         Retorno ret = miSistema.crearAerolinea("Iberia", "España", 160);
         assertEquals(Retorno.ok().resultado, ret.resultado);
-        
+
         ret = miSistema.registrarAvion("45BI6", 720, "Iberia");
         assertEquals(Retorno.ok().resultado, ret.resultado);
-                
+
         ret = miSistema.crearVuelo("123HJK", "Iberia", "45BI6", "España", 10, 12, 2024, 9, 6);
         assertEquals(Retorno.ok().resultado, ret.resultado);
-        
+
         ret = miSistema.registrarCliente("J784HJA", "Joaquin", 40);
         assertEquals(Retorno.ok().resultado, ret.resultado);
-               
+
         ret = miSistema.comprarPasaje("K05GHJA", "123HJK", 1);
-        assertEquals(Retorno.error1().resultado, ret.resultado);      
+        assertEquals(Retorno.error1().resultado, ret.resultado);
     }
-    
-    
+
     @Test
     public void comprarPasajeError2() {
         Retorno ret = miSistema.crearAerolinea("Iberia", "España", 160);
         assertEquals(Retorno.ok().resultado, ret.resultado);
-        
+
         ret = miSistema.registrarAvion("45BI6", 720, "Iberia");
         assertEquals(Retorno.ok().resultado, ret.resultado);
-                
+
         ret = miSistema.crearVuelo("123HJK", "Iberia", "45BI6", "España", 10, 12, 2024, 9, 6);
         assertEquals(Retorno.ok().resultado, ret.resultado);
-        
+
         ret = miSistema.registrarCliente("J784HJA", "Joaquin", 40);
         assertEquals(Retorno.ok().resultado, ret.resultado);
-                
+
         ret = miSistema.comprarPasaje("J784HJA", "073HJK", 1);
-        assertEquals(Retorno.error2().resultado, ret.resultado);      
+        assertEquals(Retorno.error2().resultado, ret.resultado);
     }
-    
-    
-        @Test
-        public void devolverPasajeOK() {
+
+    @Test
+    public void devolverPasajeOK() {
         Retorno ret = miSistema.crearAerolinea("Iberia", "España", 160);
         assertEquals(Retorno.ok().resultado, ret.resultado);
-        
+
         ret = miSistema.registrarAvion("45BI6", 15, "Iberia");
         assertEquals(Retorno.ok().resultado, ret.resultado);
-        
+
         //VUELO 1
         ret = miSistema.crearVuelo("123HJK", "Iberia", "45BI6", "España", 10, 12, 2024, 6, 3);
         assertEquals(Retorno.ok().resultado, ret.resultado);
-        
+
         //VUELO 2
         ret = miSistema.crearVuelo("923HJK", "Iberia", "45BI6", "España", 15, 12, 2024, 6, 3);
         assertEquals(Retorno.ok().resultado, ret.resultado);
-        
+
         //CLIENTE 1
         ret = miSistema.registrarCliente("J784HJA", "Joaquin", 40);
         assertEquals(Retorno.ok().resultado, ret.resultado);
-        
+
         //CLIENTE 2
         ret = miSistema.registrarCliente("123ASDF", "Juan", 40);
         assertEquals(Retorno.ok().resultado, ret.resultado);
-        
+
         //CLIENTE 3
         ret = miSistema.registrarCliente("123ASDP", "Juana", 30);
         assertEquals(Retorno.ok().resultado, ret.resultado);
-        
+
         //CLIENTE 4
         ret = miSistema.registrarCliente("123ASDL", "Maria", 20);
         assertEquals(Retorno.ok().resultado, ret.resultado);
-        
+
         //CLIENTE 5
         ret = miSistema.registrarCliente("123ASDJ", "Clara", 23);
         assertEquals(Retorno.ok().resultado, ret.resultado);
-              
+
         //CLIENTE 1 COMPRA PASAJE PARA VUELO 1
         ret = miSistema.comprarPasaje("J784HJA", "123HJK", 1);
-        assertEquals(Retorno.ok().resultado, ret.resultado);  
-        
+        assertEquals(Retorno.ok().resultado, ret.resultado);
+
         //CLIENTE 2 COMPRA PASAJE PARA VUELO 2 (PRIMERA CLASE)
         ret = miSistema.comprarPasaje("123ASDF", "923HJK", 2);
         assertEquals(Retorno.ok().resultado, ret.resultado);
-        
+
         //CLIENTE 3 COMPRA PASAJE PARA VUELO 2 (PRIMERA CLASE)
         ret = miSistema.comprarPasaje("123ASDP", "923HJK", 2);
         assertEquals(Retorno.ok().resultado, ret.resultado);
-        
+
         //CLIENTE 4 COMPRA PASAJE PARA VUELO 2 (PRIMERA CLASE)
         ret = miSistema.comprarPasaje("123ASDL", "923HJK", 2);
         assertEquals(Retorno.ok().resultado, ret.resultado);
-        
+
         //CLIENTE 5 COMPRA PASAJE PARA VUELO 2 (PRIMERA CLASE , pero ya no quedan => queda en cola de espera)
         ret = miSistema.comprarPasaje("123ASDJ", "923HJK", 2);
         assertEquals(Retorno.ok().resultado, ret.resultado);
-             
+
         //CLIENTE 1 DEVUELVE PASAJE, NO HAY NADIE EN COLA DE ESPERA
         ret = miSistema.devolverPasaje("J784HJA", "123HJK");
-        assertEquals(Retorno.ok().resultado, ret.resultado); 
-        
+        assertEquals(Retorno.ok().resultado, ret.resultado);
+
         //CLIENTE 2 DEVUELVE PASAJE, SE LE ASIGNA A CLIENTE 5
         ret = miSistema.devolverPasaje("123ASDF", "923HJK");
-        assertEquals(Retorno.ok().resultado, ret.resultado); 
+        assertEquals(Retorno.ok().resultado, ret.resultado);
     }
-    
+
+    @Test
+    public void listarClientes() {
+        Retorno ret = miSistema.registrarCliente("12E4R67", "Juan", 19);
+        assertEquals(Retorno.ok().resultado, ret.resultado);
+
+        ret = miSistema.registrarCliente("T65A321", "Maria", 38);
+        assertEquals(Retorno.ok().resultado, ret.resultado);
+
+        ret = miSistema.registrarCliente("G4J1GDS", "Lucia", 24);
+        assertEquals(Retorno.ok().resultado, ret.resultado);
+
+        ret = miSistema.registrarCliente("J784HJA", "Joaquin", 40);
+        assertEquals(Retorno.ok().resultado, ret.resultado);
+
+        ret = miSistema.listarClientes();
+        assertEquals("Joaquin-J784HJA-40|\nLucia-G4J1GDS-24|\nMaria-T65A321-38|\nJuan-12E4R67-19|", ret.valorString);
+
+    }
+
+    @Test
+    public void listarVuelos() {
+        Retorno ret = miSistema.crearAerolinea("Iberia", "España", 160);
+        assertEquals(Retorno.ok().resultado, ret.resultado);
+
+        ret = miSistema.registrarAvion("45BI6", 720, "Iberia");
+        assertEquals(Retorno.ok().resultado, ret.resultado);
+
+        ret = miSistema.registrarAvion("H8VR9", 723, "Iberia");
+        assertEquals(Retorno.ok().resultado, ret.resultado);
+
+        ret = miSistema.registrarAvion("H6VU9", 723, "Iberia");
+        assertEquals(Retorno.ok().resultado, ret.resultado);
+
+        ret = miSistema.crearVuelo("123HJK", "Iberia", "45BI6", "España", 10, 12, 2024, 9, 6);
+        assertEquals(Retorno.ok().resultado, ret.resultado);
+
+        ret = miSistema.crearVuelo("193HDK", "Iberia", "H8VR9", "Uruguay", 12, 02, 2025, 9, 6);
+        assertEquals(Retorno.ok().resultado, ret.resultado);
+
+        ret = miSistema.crearVuelo("564GHT", "Iberia", "H8VR9", "Uruguay", 17, 03, 2025, 12, 9);
+        assertEquals(Retorno.ok().resultado, ret.resultado);
+
+        ret = miSistema.listarVuelos();
+        assertEquals("Código de vuelo: 123HJK, Aerolínea: Iberia, Código de Avión: 45BI6, Economica vendidos: 0, Primera clase vendidos: 0, pasajes disponibles: 15\n"
+                + "Código de vuelo: 193HDK, Aerolínea: Iberia, Código de Avión: H8VR9, Economica vendidos: 0, Primera clase vendidos: 0, pasajes disponibles: 15\n"
+                + "Código de vuelo: 564GHT, Aerolínea: Iberia, Código de Avión: H8VR9, Economica vendidos: 0, Primera clase vendidos: 0, pasajes disponibles: 21", ret.valorString);
+    }
+
+    @Test
+    public void vuelosDeCliente() {
+        // Registro de aerolíneas necesarias con todos sus parámetros
+        Retorno ret = miSistema.crearAerolinea("Iberia", "España", 5);
+        assertEquals(Retorno.ok().resultado, ret.resultado);
+
+        ret = miSistema.crearAerolinea("Avianca", "Colombia", 4);
+        assertEquals(Retorno.ok().resultado, ret.resultado);
+
+        ret = miSistema.crearAerolinea("LATAM", "Chile", 3);
+        assertEquals(Retorno.ok().resultado, ret.resultado);
+
+        ret = miSistema.crearAerolinea("Delta", "Estados Unidos", 5);
+        assertEquals(Retorno.ok().resultado, ret.resultado);
+
+        // Registro de aviones
+        ret = miSistema.registrarAvion("45BI6", 15, "Iberia");
+        assertEquals(Retorno.ok().resultado, ret.resultado);
+
+        ret = miSistema.registrarAvion("12AV8", 18, "Avianca");
+        assertEquals(Retorno.ok().resultado, ret.resultado);
+
+        ret = miSistema.registrarAvion("89LA7", 15, "LATAM");
+        assertEquals(Retorno.ok().resultado, ret.resultado);
+
+        ret = miSistema.registrarAvion("B777D", 9, "Delta");
+        assertEquals(Retorno.ok().resultado, ret.resultado);
+
+        // Registro de clientes
+        ret = miSistema.registrarCliente("P001234", "Carlos", 30);
+        assertEquals(Retorno.ok().resultado, ret.resultado);
+
+        ret = miSistema.registrarCliente("P002345", "Ana", 25);
+        assertEquals(Retorno.ok().resultado, ret.resultado);
+
+        // Registro de vuelos
+        ret = miSistema.crearVuelo("123HJK", "Iberia", "45BI6", "España", 10, 12, 2024, 9, 6);
+        assertEquals(Retorno.ok().resultado, ret.resultado);
+
+        ret = miSistema.crearVuelo("456LMN", "Avianca", "12AV8", "Colombia", 15, 11, 2024, 12, 6);
+        assertEquals(Retorno.ok().resultado, ret.resultado);
+
+        ret = miSistema.crearVuelo("789XYZ", "LATAM", "89LA7", "Chile", 20, 1, 2025, 12, 3);
+        assertEquals(Retorno.ok().resultado, ret.resultado);
+
+        // Clientes compran pasajes
+        ret = miSistema.comprarPasaje("P001234", "123HJK", 1); // Carlos compra en vuelo 123HJK
+        assertEquals(Retorno.ok().resultado, ret.resultado);
+
+        ret = miSistema.comprarPasaje("P001234", "456LMN", 2); // Carlos compra en vuelo 456LMN
+        assertEquals(Retorno.ok().resultado, ret.resultado);
+
+        ret = miSistema.devolverPasaje("P001234", "456LMN"); // Carlos devuelve pasaje de 456LMN
+        assertEquals(Retorno.ok().resultado, ret.resultado);
+
+        ret = miSistema.comprarPasaje("P001234", "789XYZ", 1); // Carlos compra en vuelo 789XYZ
+        assertEquals(Retorno.ok().resultado, ret.resultado);
+
+        // Caso de Ana sin pasajes
+        ret = miSistema.vuelosDeCliente("P002345");
+        assertEquals(Retorno.ok().resultado, ret.resultado);
+        assertEquals("", ret.valorString);
+
+        // Caso de Carlos con pasajes comprados y devueltos
+        ret = miSistema.vuelosDeCliente("P001234");
+        assertEquals(Retorno.ok().resultado, ret.resultado);
+        assertEquals("789XYZ-CPR|\n456LMN-DEV|\n123HJK-CPR", ret.valorString);
+
+        // Cliente no registrado
+        ret = miSistema.vuelosDeCliente("P003456");
+        assertEquals(Retorno.error1().resultado, ret.resultado);
+        assertEquals("El pasaporte del cliente no existe.", ret.valorString);
+
+        // Registrar otro vuelo y verificar su inclusión en la lista de pasajes de Carlos
+        ret = miSistema.crearVuelo("555AAA", "Delta", "B777D", "Estados Unidos", 5, 7, 2025, 6, 3);
+        assertEquals(Retorno.ok().resultado, ret.resultado);
+
+        ret = miSistema.comprarPasaje("P001234", "555AAA", 1); // Carlos compra en vuelo 555AAA
+        assertEquals(Retorno.ok().resultado, ret.resultado);
+
+        ret = miSistema.vuelosDeCliente("P001234");
+        assertEquals(Retorno.ok().resultado, ret.resultado);
+        assertEquals("555AAA-CPR|\n789XYZ-CPR|\n456LMN-DEV|\n123HJK-CPR", ret.valorString);
+    }
+
+    @Test
+    public void vistaDeVuelo() {
+        // Registro de aerolínea con sus aviones
+        Retorno ret = miSistema.crearAerolinea("Iberia", "España", 160);
+        assertEquals(Retorno.ok().resultado, ret.resultado);
+
+        ret = miSistema.registrarAvion("45BI6", 15, "Iberia");
+        assertEquals(Retorno.ok().resultado, ret.resultado);
+
+        // Creación del vuelo
+        ret = miSistema.crearVuelo("123HJK", "Iberia", "45BI6", "España", 10, 12, 2024, 9, 6);
+        assertEquals(Retorno.ok().resultado, ret.resultado);
+
+        ret = miSistema.registrarCliente("P001234", "Carlos", 30);
+        assertEquals(Retorno.ok().resultado, ret.resultado);
+        
+        ret = miSistema.registrarCliente("123HJK", "Ana", 30);
+        assertEquals(Retorno.ok().resultado, ret.resultado);
+        
+        // Simulación de compra de pasajes
+        ret = miSistema.comprarPasaje("P001234", "123HJK", 1);
+        assertEquals(Retorno.ok().resultado, ret.resultado);
+
+//        ret = miSistema.comprarPasaje("P002345", "123HJK", 2);
+//        assertEquals(Retorno.ok().resultado, ret.resultado);
+//
+//        ret = miSistema.comprarPasaje("P003456", "123HJK", 3);
+//        assertEquals(Retorno.ok().resultado, ret.resultado);
+//
+//        ret = miSistema.comprarPasaje("P004567", "123HJK", 4);
+//        assertEquals(Retorno.ok().resultado, ret.resultado);
+//
+//        // Vista de distribución de vuelo con pasajes vendidos
+//        ret = miSistema.vistaDeVuelo("123HJK");
+//        assertEquals(Retorno.ok().resultado, ret.resultado);
+//        assertEquals("**********************************\n"
+//                + "* PRIMERA *\n"
+//                + "**********************************\n"
+//                + "* P001234 * P002345 * P003456 *\n"
+//                + "**********************************\n"
+//                + "* P004567 * XXXXXXXX * XXXXXXXX *\n"
+//                + "**********************************\n"
+//                + "* ECONÓMICA *\n"
+//                + "**********************************\n"
+//                + "* XXXXXXXX * XXXXXXXX * XXXXXXXX *\n"
+//                + "**********************************", ret.valorString);
+    }
+
 }

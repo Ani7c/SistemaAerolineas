@@ -31,8 +31,13 @@ public class Cliente implements Comparable<Cliente> {
         this.Pasaporte = pasaporte;
     }
     
+    @Override
+    public String toString() {
+        return Nombre + '-' + Pasaporte + '-' + Edad + '|';
+    }
+    
     public void setPasajesCliente(Pasaje pasaje) {
-        this.PasajesCliente.agregarFinal(pasaje);
+        this.PasajesCliente.agregarInicio(pasaje);
     }
     
     public Lista<Pasaje> getPasajes() {

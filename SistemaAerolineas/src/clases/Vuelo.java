@@ -17,8 +17,10 @@ public class Vuelo implements Comparable<Vuelo> {
     public int Dia;
     public int Mes;
     public int Año;
-    public int CantPasajesEcon;
-    public int CantPasajesPClase;
+    public int CantPasajesEconVendidos;
+    public int CantPasajesPClaseVendidos;
+    public int CantPasajesEconDisponibles;
+    public int CantPasajesPrimeraDisponibles;
     public Lista<Pasaje> pasajesVendidos;
     public Cola<Cliente> colaEconomica;
     public Cola<Cliente> colaPClase;
@@ -34,8 +36,8 @@ public class Vuelo implements Comparable<Vuelo> {
         this.Dia = Dia;
         this.Mes = Mes;
         this.Año = Año;
-        this.CantPasajesEcon = CantPasajesEcon;
-        this.CantPasajesPClase = CantPasajesPClase;
+        this.CantPasajesEconDisponibles = CantPasajesEcon;
+        this.CantPasajesPrimeraDisponibles = CantPasajesPClase;
         this.pasajesVendidos = new Lista<>();
         this.colaEconomica = new Cola<>();
         this.colaPClase = new Cola<>();
@@ -52,6 +54,11 @@ public class Vuelo implements Comparable<Vuelo> {
 //    public void setPasajeVendido(Pasaje pasaje){
 //        this.pasajesVendidos.agregarFinal(pasaje);
 //    }
+     @Override
+    public String toString() {
+        return "Código de vuelo: " + CodigoVuelo + ", Aerolínea: " + Aerolinea.getNombre() + ", Código de Avión: " + Avion.getCodigo() +
+               ", Economica vendidos: " + CantPasajesEconVendidos + ", Primera clase vendidos: " + CantPasajesPClaseVendidos + ", pasajes disponibles: " + (CantPasajesEconDisponibles+CantPasajesPrimeraDisponibles);
+    }
     
     public void agregarAListaDeEsperaEcon(Cliente cliente){
         this.colaEconomica.encolar(cliente);
@@ -117,11 +124,11 @@ public class Vuelo implements Comparable<Vuelo> {
     }
 
     public void setCantPasajesEcon(int cantPasajesEcon) {
-        this.CantPasajesEcon = cantPasajesEcon;
+        this.CantPasajesEconDisponibles = cantPasajesEcon;
     }
 
     public void setCantPasajesPClase(int cantPasajesPClase) {
-        this.CantPasajesPClase = cantPasajesPClase;
+        this.CantPasajesPrimeraDisponibles = cantPasajesPClase;
     }
 
     public void setAerolinea(Aerolinea aerolinea) {

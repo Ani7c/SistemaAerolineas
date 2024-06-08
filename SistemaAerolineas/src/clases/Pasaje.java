@@ -23,6 +23,11 @@ public class Pasaje implements Comparable<Pasaje>{
         this.CategoriaPasaje = categoriaPasaje;  
         this.EstadoPasaje = "CPR";
     }
+    
+    @Override
+    public String toString() {
+        return CodigoVuelo + "-" + EstadoPasaje;
+    }
 
     public String getCodVuelo() {
         return this.CodigoVuelo;

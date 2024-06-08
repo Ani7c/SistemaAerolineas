@@ -15,6 +15,7 @@ public class Aerolinea implements Comparable<Aerolinea>{
     private String Pais;
     private int CantMaxAviones;
     private Lista<Avion> listaAviones;
+    public Lista<Pasaje> pasajesDevueltos;
     
     public Aerolinea(){};
     
@@ -22,7 +23,8 @@ public class Aerolinea implements Comparable<Aerolinea>{
         this.Nombre = Nombre;
         this.Pais = Pais;
         this.CantMaxAviones = CantMaxAviones;
-        this.listaAviones = new Lista<Avion>();
+        this.listaAviones = new Lista<>();
+        this.pasajesDevueltos = new Lista<>();
     }
 
     public Aerolinea(String nomAerolinea) {
