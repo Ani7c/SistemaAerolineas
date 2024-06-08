@@ -64,7 +64,7 @@ public class Avion implements Comparable<Avion>{
 
     @Override
     public int compareTo(Avion o) {
-        return this.getCodigo().compareTo(o.getCodigo()); // Comparar los códigos normalmente
+        return this.getCodigo().compareTo(o.getCodigo());
     }
     
      @Override

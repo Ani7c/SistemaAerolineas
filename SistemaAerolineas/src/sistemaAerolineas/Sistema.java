@@ -15,21 +15,21 @@ public class Sistema implements IObligatorio {
     private Lista<Cliente> listaClientes;
     private Lista<Pasaje> listaPasajes;
     private Lista<Vuelo> listaVuelos;
-    
+
     @Override
     public Retorno crearSistemaDeGestion() {
         listaAerolineas = new Lista<Aerolinea>();
         listaAviones = new Lista<Avion>();
         listaClientes = new Lista<Cliente>();
         listaPasajes = new Lista<Pasaje>();
-        listaVuelos  = new Lista<Vuelo>();
+        listaVuelos = new Lista<Vuelo>();
         return Retorno.ok();
     }
 
     @Override
     public Retorno crearAerolinea(String nombre, String pais, int cantMaxAviones) {
         Aerolinea aerolinea = new Aerolinea(nombre, pais, cantMaxAviones);
-        
+
         if (cantMaxAviones <= 0) {
             return Retorno.error2();
         }
@@ -45,7 +45,7 @@ public class Sistema implements IObligatorio {
         Aerolinea a = new Aerolinea();
         a.setNombre(nombre);
         //En caso de que no exista una aerolínea con dicho nombre
-        if(!listaAerolineas.existeElemento(a)) {
+        if (!listaAerolineas.existeElemento(a)) {
             return Retorno.error1();
         }
         Aerolinea aBorrar = listaAerolineas.obtenerElemento(a);
@@ -58,13 +58,13 @@ public class Sistema implements IObligatorio {
         return Retorno.ok();
     }
 
- @Override
+    @Override
     public Retorno registrarAvion(String codigo, int capacidadMax, String nomAerolinea) {
         Aerolinea aeroBuscada = new Aerolinea(nomAerolinea);
-        if(!listaAerolineas.existeElemento(aeroBuscada)) {
+        if (!listaAerolineas.existeElemento(aeroBuscada)) {
             //Si no existe la aerolínea
             return Retorno.error3();
-        } else if(capacidadMax < 9 || (capacidadMax % 3) != 0){
+        } else if (capacidadMax < 9 || (capacidadMax % 3) != 0) {
             //Si la capacidad máxima es > que 9 pasajeros o no es múltiplo de 3.
             return Retorno.error2();
         } else {
@@ -73,11 +73,11 @@ public class Sistema implements IObligatorio {
             Avion avion = new Avion(codigo, capacidadMax, aerolinea);
             if (aerolinea.getAviones().existeElemento(avion)) {
                 return Retorno.error1();
-        }
-        aerolinea.setAviones(avion);
-        listaAviones.agregarInicio(avion);
-        
-        return Retorno.ok();
+            }
+            aerolinea.setAviones(avion);
+            listaAviones.agregarInicio(avion);
+
+            return Retorno.ok();
 //        Avion avion = new Avion(codigo, capacidadMax, nomAerolinea);
 //        
 //        Aerolinea aBuscar = new Aerolinea();
@@ -106,12 +106,12 @@ public class Sistema implements IObligatorio {
 //        return Retorno.ok();
         }
     }
-    
+
     @Override
     public Retorno eliminarAvion(String nomAerolinea, String codAvion) {
-        Aerolinea aerolinea = new Aerolinea(nomAerolinea); 
+        Aerolinea aerolinea = new Aerolinea(nomAerolinea);
         Avion avion = new Avion(codAvion);
-        
+
         if (!listaAerolineas.existeElemento(aerolinea)) { // En caso de que no exista la aerolínea.        
             return Retorno.error1();
         }
@@ -125,42 +125,42 @@ public class Sistema implements IObligatorio {
             if (listaVuelosDeAvion.esVacia()) {
                 aerolineaBuscada.getAviones().eliminarElemento(avion);
                 listaAviones.eliminarElemento(avion);
-                return Retorno.ok();       
+                return Retorno.ok();
             }
             Nodo<Vuelo> vueloNodo = listaVuelosDeAvion.getInicio();
-            while(vueloNodo != null) {
-            if (!vueloNodo.getDato().getPasajesVendidos().esVacia()){
-                return Retorno.error3();
-            } else {
-                vueloNodo = vueloNodo.getSiguiente();
-            }
+            while (vueloNodo != null) {
+                if (!vueloNodo.getDato().getPasajesVendidos().esVacia()) {
+                    return Retorno.error3();
+                } else {
+                    vueloNodo = vueloNodo.getSiguiente();
+                }
             }
         }
         aerolineaBuscada.getAviones().eliminarElemento(avion);
         listaAviones.eliminarElemento(avion);
-        return Retorno.ok();       
+        return Retorno.ok();
     }
 
     @Override
     //no se hace
     public Retorno registrarCliente(String pasaporte, String nombre, int edad) {
         if (edad < 0) {
-        //1.- En caso de que la edad sea < 0
+            //1.- En caso de que la edad sea < 0
             return Retorno.error1();
-        } else if (pasaporte.length() != 7){
-        //2.- En caso de que el número de pasaporte sea <> a 7 caracteres.
+        } else if (pasaporte.length() != 7) {
+            //2.- En caso de que el número de pasaporte sea <> a 7 caracteres.
             return Retorno.error2();
         } else {
-        //3.- En caso de que ya exista un cliente con dicho pasaporte
+            //3.- En caso de que ya exista un cliente con dicho pasaporte
             Cliente nuevoCliente = new Cliente(pasaporte, nombre, edad);
-            if(listaClientes.existeElemento(nuevoCliente)) {
+            if (listaClientes.existeElemento(nuevoCliente)) {
                 return Retorno.error3();
             } else {
                 listaClientes.agregarInicio(nuevoCliente);
                 return Retorno.ok();
             }
         }
-        
+
     }
 
     @Override
@@ -171,58 +171,56 @@ public class Sistema implements IObligatorio {
 //de pasajes de ambas categorías no cubra el total de pasajes disponibles, se completará el vuelo con pasajes de categoría
 //económica hasta cubrir el total de capacidad del avión.
 //Retornos posibles
-    
+
 //ERROR 1.
-    Vuelo nuevoVuelo = new Vuelo(codigoVuelo);
-    if(listaVuelos.existeElemento(nuevoVuelo)) {
+        Vuelo nuevoVuelo = new Vuelo(codigoVuelo);
+        if (listaVuelos.existeElemento(nuevoVuelo)) {
 //1. -En caso de que ya exista el código de vuelo en el sistema
-        return Retorno.error1();
-    } else if(listaAerolineas.existeElemento(new Aerolinea(aerolinea))){
+            return Retorno.error1();
+        } else if (listaAerolineas.existeElemento(new Aerolinea(aerolinea))) {
 //2. - En caso de que la aerolínea no exista en el sistema.
-        return Retorno.error2();
-    } else {
-        Aerolinea aerolineaBuscada = listaAerolineas.obtenerElemento(new Aerolinea(aerolinea));
-        if(!aerolineaBuscada.getAviones().existeElemento(new Avion(codAvion))) {
-//3.- En caso de que el código de avión no exista dentro de la aerolínea.
-            return Retorno.error3();
+            return Retorno.error2();
         } else {
+            Aerolinea aerolineaBuscada = listaAerolineas.obtenerElemento(new Aerolinea(aerolinea));
+            if (!aerolineaBuscada.getAviones().existeElemento(new Avion(codAvion))) {
+//3.- En caso de que el código de avión no exista dentro de la aerolínea.
+                return Retorno.error3();
+            } else {
 ////4 - En caso de que ya exista un vuelo creado para ese avión en dicha fecha.
-            Nodo<Vuelo> actual = listaVuelos.getInicio();
-            while (actual != null) {
-                Vuelo vuelo = actual.getDato();
-                Avion avionBuscado = new Avion(codAvion);
-                if (vuelo.getAvion().equals(avionBuscado) && vuelo.mismaFecha(dia, mes, año)) {
-                    return Retorno.error4(); // Ya existe un vuelo para ese avión en esa fecha
+                Nodo<Vuelo> actual = listaVuelos.getInicio();
+                while (actual != null) {
+                    Vuelo vuelo = actual.getDato();
+                    Avion avionBuscado = new Avion(codAvion);
+                    if (vuelo.getAvion().equals(avionBuscado) && vuelo.mismaFecha(dia, mes, año)) {
+                        return Retorno.error4(); // Ya existe un vuelo para ese avión en esa fecha
+                    }
+                    actual = actual.getSiguiente();
                 }
-                actual = actual.getSiguiente();
             }
-        }
 //5 – En caso de que las cantidades de pasajes (de cualquiera de las categorías) no sea
 //múltiplo de 3.
-        if (cantPasajesEcon < 3 || cantPasajesPClase < 3 || cantPasajesEcon % 3 != 0 || cantPasajesPClase % 3 != 0) {
-            return Retorno.error5();
-        }  
+            if (cantPasajesEcon < 3 || cantPasajesPClase < 3 || cantPasajesEcon % 3 != 0 || cantPasajesPClase % 3 != 0) {
+                return Retorno.error5();
+            }
 //6 - En caso de que la suma de los pasajes de ambas categorías supere la cant. máxima
 //permitida por el avión.
-        Avion aBuscado = listaAviones.obtenerElemento(new Avion(codAvion));
-        if((cantPasajesEcon + cantPasajesPClase) > aBuscado.getCapacidadMax()){
-            return Retorno.error6();
+            Avion aBuscado = listaAviones.obtenerElemento(new Avion(codAvion));
+            if ((cantPasajesEcon + cantPasajesPClase) > aBuscado.getCapacidadMax()) {
+                return Retorno.error6();
+            }
+            nuevoVuelo.setAerolinea(aerolineaBuscada);
+            nuevoVuelo.setAvion(aBuscado);
+            nuevoVuelo.setDestino(paisDestino);
+            nuevoVuelo.setFecha(dia, mes, año);
+            nuevoVuelo.setCantPasajesEcon(cantPasajesEcon);
+            nuevoVuelo.setCantPasajesPClase(cantPasajesPClase);
         }
-        nuevoVuelo.setAerolinea(aerolineaBuscada);
-        nuevoVuelo.setAvion(aBuscado);
-        nuevoVuelo.setDestino(paisDestino);
-        nuevoVuelo.setFecha(dia, mes, año);
-        nuevoVuelo.setCantPasajesEcon(cantPasajesEcon);
-        nuevoVuelo.setCantPasajesPClase(cantPasajesPClase);
-    }  
-    
-    listaVuelos.agregarFinal(nuevoVuelo);
-    
-    return Retorno.ok();
 
-    
+        listaVuelos.agregarFinal(nuevoVuelo);
+
+        return Retorno.ok();
+
     }
-
 
     @Override
     public Retorno comprarPasaje(String pasaporteCliente, String codigoVuelo, int categoríaPasaje) {
@@ -235,54 +233,92 @@ public class Sistema implements IObligatorio {
 //1.- En caso de que el pasaporte del cliente no exista
         Cliente cliBuscado = listaClientes.obtenerElemento(new Cliente(pasaporteCliente));
         Vuelo vueloBuscado = listaVuelos.obtenerElemento(new Vuelo(codigoVuelo));
-        if(cliBuscado == null){
+        if (cliBuscado == null) {
             return Retorno.error1();
-        } else if(vueloBuscado == null){
+        } else if (vueloBuscado == null) {
             return Retorno.error2();
         }
-        
-        if((categoríaPasaje ==1 && vueloBuscado.CantPasajesEcon > 0) || (categoríaPasaje ==2 && vueloBuscado.CantPasajesPClase > 0)) {
+
+        if ((categoríaPasaje == 1 && vueloBuscado.CantPasajesEcon > 0) || (categoríaPasaje == 2 && vueloBuscado.CantPasajesPClase > 0)) {
             Pasaje pasajeNuevo = new Pasaje(pasaporteCliente, codigoVuelo, categoríaPasaje);
             listaPasajes.agregarFinal(pasajeNuevo);
-            cliBuscado.setPasajesCliente(pasajeNuevo);  
+            cliBuscado.setPasajesCliente(pasajeNuevo);
             vueloBuscado.setPasajeVendido(pasajeNuevo);
-            if(categoríaPasaje ==1 ){
+            if (categoríaPasaje == 1) {
                 vueloBuscado.CantPasajesEcon--;
-            } else if(categoríaPasaje ==2){
+            } else if (categoríaPasaje == 2) {
                 vueloBuscado.CantPasajesPClase--;
             }
         } else {
-            if(categoríaPasaje ==1 ){
+            if (categoríaPasaje == 1) {
                 vueloBuscado.agregarAListaDeEsperaEcon(cliBuscado);
-            } else if(categoríaPasaje ==2){
+            } else if (categoríaPasaje == 2) {
                 vueloBuscado.agregarAListaDeEsperaPClase(cliBuscado);
             }
         }
-                
-        
-//2.- En caso de que el código de vuelo no exista
 
+//2.- En caso de que el código de vuelo no exista
         return Retorno.ok();
     }
 
     @Override
     public Retorno devolverPasaje(String pasaporteCliente, String codigoVuelo) {
-        return Retorno.noImplementada();
-        //ese pasaje --> setEstado "DEV"
-        //creamos uno nuevo a pasaporteCliente
+        //1.- En caso de que exista el pasaporte del cliente
+        //2.- En caso de que no exista el código de vuelo
+        Cliente cliBuscado = listaClientes.obtenerElemento(new Cliente(pasaporteCliente));
+        Vuelo vueloBuscado = listaVuelos.obtenerElemento(new Vuelo(codigoVuelo));
+        if (cliBuscado == null) {
+            return Retorno.error1();
+        } else if (vueloBuscado == null) {
+            return Retorno.error2();
+        }
+
+        //3 – En caso de que no exista una compra del cliente para dicho vuelo
+        Nodo<Pasaje> actual = vueloBuscado.getPasajesVendidos().getInicio();
+        while (actual != null) {
+            Pasaje pasaje = actual.getDato();
+            if (pasaje.getPasaporte().equals(pasaporteCliente)) {
+                pasaje.setEstado("DEV");
+                int categoria = pasaje.getCategoria();
+             
+                Cliente nuevoCliente;
+                if (categoria == 1) {
+                    if (vueloBuscado.colaEconomica.isEmpty()){
+                        vueloBuscado.CantPasajesEcon++;
+                    } else {
+                        nuevoCliente = vueloBuscado.eliminarDeListaDeEsperaEcon();
+                        Pasaje pasajeNuevo = new Pasaje(nuevoCliente.getPasaporte(), codigoVuelo, categoria);               
+                        nuevoCliente.setPasajesCliente(pasajeNuevo);
+                        vueloBuscado.setPasajeVendido(pasajeNuevo);
+                    }                 
+                } else if (vueloBuscado.colaPClase.isEmpty()){
+                    vueloBuscado.CantPasajesPClase++;
+                } else {
+                    nuevoCliente = vueloBuscado.eliminarDeListaDeEsperaPClase();
+                    Pasaje pasajeNuevo = new Pasaje(nuevoCliente.getPasaporte(), codigoVuelo, categoria);               
+                    nuevoCliente.setPasajesCliente(pasajeNuevo);
+                    vueloBuscado.setPasajeVendido(pasajeNuevo);
+                } 
+                              
+                return Retorno.ok();
+            }
+            actual = actual.getSiguiente();
+        }
+        return Retorno.error3();
+
     }
 
-      @Override
+    @Override
     public Retorno listarAerolineas() {
         //Completar con OK (armar cadena)
         Retorno ret = new Retorno(Retorno.Resultado.OK);
         Nodo<Aerolinea> nodoAerolinea = listaAerolineas.getInicio();
         ret.valorString = "";
-        while(nodoAerolinea!=null){
-            ret.valorString+= nodoAerolinea.getDato().toString();
+        while (nodoAerolinea != null) {
+            ret.valorString += nodoAerolinea.getDato().toString();
             nodoAerolinea = nodoAerolinea.getSiguiente();
         }
-        
+
         return ret;
     }
 
@@ -291,19 +327,19 @@ public class Sistema implements IObligatorio {
         Retorno ret = new Retorno(Retorno.Resultado.OK);
         Aerolinea aBusq = new Aerolinea();
         aBusq.setNombre(nombre);
-        
+
         if (!listaAerolineas.existeElemento(aBusq)) {
             return Retorno.error1();
         } else {
             Aerolinea aerolinea = listaAerolineas.obtenerElemento(aBusq);
             Nodo<Avion> nodoAvion = aerolinea.getAviones().getInicio();
             ret.valorString = "";
-            while(nodoAvion!=null) {
+            while (nodoAvion != null) {
                 ret.valorString += nodoAvion.getDato().toString();
                 nodoAvion = nodoAvion.getSiguiente();
             }
         }
-        
+
         return ret;
     }
 

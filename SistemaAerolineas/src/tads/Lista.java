@@ -1,5 +1,7 @@
 package tads;
 
+import java.util.Date;
+
 public class Lista<T extends Comparable<T>> implements ILista<T> {
 
     private Nodo<T> inicio;
@@ -188,6 +190,11 @@ public class Lista<T extends Comparable<T>> implements ILista<T> {
 
         }
 
+    }
+
+    public boolean existeVueloMismaFecha(Date fecha, Lista<T> lista) {
+        
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
 }

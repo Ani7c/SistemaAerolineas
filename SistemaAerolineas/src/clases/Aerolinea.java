@@ -68,7 +68,7 @@ public class Aerolinea implements Comparable<Aerolinea>{
 
     @Override
     public int compareTo(Aerolinea o) {
-        return this.getNombre().compareTo(o.getNombre()); // Comparar los códigos normalmente
+        return this.getNombre().compareTo(o.getNombre());
     }
     
     @Override

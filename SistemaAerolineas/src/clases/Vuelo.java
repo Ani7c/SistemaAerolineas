@@ -20,8 +20,8 @@ public class Vuelo implements Comparable<Vuelo>{
     public int CantPasajesEcon;
     public int CantPasajesPClase;
     private Lista<Pasaje> pasajesVendidos;
-    private Cola<Cliente> colaEconomica;
-    private Cola<Cliente> colaPClase;
+    public Cola<Cliente> colaEconomica;
+    public Cola<Cliente> colaPClase;
 
 
     public Vuelo(){}
@@ -50,6 +50,14 @@ public class Vuelo implements Comparable<Vuelo>{
     }
     public void agregarAListaDeEsperaPClase(Cliente cliente){
          this.colaPClase.encolar(cliente);
+    }
+    
+    public Cliente eliminarDeListaDeEsperaEcon(){
+        return this.colaEconomica.desencolar();
+    }
+    
+    public Cliente eliminarDeListaDeEsperaPClase(){
+        return this.colaPClase.desencolar();
     }
  
     public Vuelo(String codigoVuelo) {
