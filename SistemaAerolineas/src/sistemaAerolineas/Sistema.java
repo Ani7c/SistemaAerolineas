@@ -274,7 +274,7 @@ public class Sistema implements IObligatorio {
                 pasaje.setEstado("DEV");
                 vueloBuscado.getAerolinea().pasajesDevueltos.agregarFinal(pasaje);
                 int categoria = pasaje.getCategoria();
-                vueloBuscado.pasajesVendidos.eliminarElemento(pasaje);
+                //vueloBuscado.pasajesVendidos.eliminarElemento(pasaje);
                 Cliente nuevoCliente;
                 if (categoria == 1) {
                     if (vueloBuscado.colaEconomica.isEmpty()) {
@@ -463,6 +463,7 @@ public class Sistema implements IObligatorio {
         Vuelo vuelo = listaVuelos.obtenerElemento(new Vuelo(codigoVuelo));
 
         StringBuilder reporte = new StringBuilder();
+        Retorno ret = new Retorno(Retorno.Resultado.OK);
 
         // Encabezado para categoría primera
         reporte.append("**********************************\n");
@@ -472,18 +473,30 @@ public class Sistema implements IObligatorio {
         // Filas de asientos de primera clase
         int asientosPorFila = 3;
         int filasPrimeraClase = vuelo.CantPasajesPrimera / asientosPorFila;
-
+        
         // Iterar sobre los pasajes vendidos en primera clase
         Nodo<Pasaje> nodoPasaje = vuelo.getPasajesVendidos().getInicio();
         
+        //separar los pasajes en dos listas
+        Lista<Pasaje> economica = new Lista<>();
+        Lista<Pasaje> primera = new Lista<>();
+        while (nodoPasaje != null){
+            if (nodoPasaje.getDato().getCategoria() == 1) {
+                economica.agregarInicio(nodoPasaje.getDato());
+            } else {
+                primera.agregarInicio(nodoPasaje.getDato());
+            }
+            nodoPasaje = nodoPasaje.getSiguiente();
+        }
         
+        Nodo<Pasaje> nodoPrimera = primera.getInicio();
         for (int i = 0; i < filasPrimeraClase; i++) {
             for (int j = 0; j < asientosPorFila; j++) {
-                if (nodoPasaje != null && nodoPasaje.getDato().getCategoria() == 2) {
+                if (nodoPrimera != null) {
                     // Obtener el pasaporte del pasajero desde el nodo actual
-                    String pasaporte = nodoPasaje.getDato().getPasaporte();
+                    String pasaporte = nodoPrimera.getDato().getPasaporte();
                     // Avanzar al siguiente nodo
-                    nodoPasaje = nodoPasaje.getSiguiente();
+                    nodoPrimera = nodoPrimera.getSiguiente();
                     // Agregar el pasaporte del pasajero al reporte
                     reporte.append("* ").append(pasaporte).append(" ");
                 } else {
@@ -503,14 +516,15 @@ public class Sistema implements IObligatorio {
         // Filas de asientos económicos
         int filasEconomicas = vuelo.CantPasajesEcon / asientosPorFila;
 
+        Nodo<Pasaje> nodoEconomica = economica.getInicio();
         // Iterar sobre los pasajes vendidos en económica
         for (int i = 0; i < filasEconomicas; i++) {
             for (int j = 0; j < asientosPorFila; j++) {
-                if (nodoPasaje != null && nodoPasaje.getDato().getCategoria() == 1) {
+                if (nodoEconomica != null) {
                     // Obtener el pasaporte del pasajero desde el nodo actual
-                    String pasaporte = nodoPasaje.getDato().getPasaporte();
+                    String pasaporte = nodoEconomica.getDato().getPasaporte();
                     // Avanzar al siguiente nodo
-                    nodoPasaje = nodoPasaje.getSiguiente();
+                    nodoEconomica = nodoEconomica.getSiguiente();
                     // Agregar el pasaporte del pasajero al reporte
                     reporte.append("* ").append(pasaporte).append(" ");
                 } else {
@@ -522,8 +536,9 @@ public class Sistema implements IObligatorio {
             // Agregar una línea de separación entre filas de pasajeros
             reporte.append("**********************************\n");
         }
-
-        return Retorno.ok(reporte.toString());
+        
+        ret.valorString = reporte.toString();
+        return ret;
     }
 
 }

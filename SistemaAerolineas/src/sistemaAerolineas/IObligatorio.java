@@ -10,11 +10,14 @@ public interface IObligatorio {
     //pre:      
     //post: Se crea la estructura necesaria para representar el sistema de gestión. Devuelve OK si el sistema se inicializó correctamente, o ERROR si la función aún no se ha implementado.
     public Retorno crearSistemaDeGestion();;
-    //pre:  La cantidad de Aviones debe ser > 0    
+    //pre:  La cantidad de Aviones debe ser > 0
+    //pre:  El nombre de la aerolinea debe ser unico
     //post: Se registra una aerolínea especificando la cantidad máxima de aviones que puede gestionar.
     public Retorno crearAerolinea(String nombre, String pais, int cantMaxAviones); 
     //pre:  Se debe ingresar un nombre de una Aerolinea existente   
-    //post: Se elimina la aerolinea
+    //post: Si el nombre de la aerolinea pasado por parametro no existe en el sistema, retorna Error1. 
+    //      Si tiene aviones asignados retorna Error2.
+    //      Si pudo eliminar la aerolinea exitosamente retorna ok y se elimina dicha aerolinea del sistema.
     public  Retorno eliminarAerolinea(String nombre);; 
     //pre:  La capacidad máxima debe ser > 9 y multiplo de 3
             //no debe haber un avion con el mismo codigo en esa aerolinea
