@@ -57,6 +57,10 @@ public class Avion implements Comparable<Avion>{
         return this.listaVuelos;
     }
     
+    public void setListaVuelos(Vuelo vuelo) {
+        listaVuelos.agregarFinal(vuelo);
+    }
+    
     @Override
     public boolean equals(Object obj) {
         return this.getCodigo().equals(((Avion) obj).getCodigo());

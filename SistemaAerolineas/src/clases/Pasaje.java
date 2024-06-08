@@ -49,6 +49,9 @@ public class Pasaje implements Comparable<Pasaje>{
         return this.getPasaporte().compareTo(o.getPasaporte());
     }
     
-
+    @Override
+    public boolean equals(Object obj) {
+        return this.getPasaporte().equals(((Pasaje) obj).getPasaporte());
+    }
      
 }

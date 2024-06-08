@@ -9,7 +9,7 @@ import tads.Lista;
  *
  * @author anita
  */
-public class Vuelo implements Comparable<Vuelo>{  
+public class Vuelo implements Comparable<Vuelo> {  
     private String CodigoVuelo;
     private Aerolinea Aerolinea;
     private Avion Avion;
@@ -19,7 +19,7 @@ public class Vuelo implements Comparable<Vuelo>{
     public int Año;
     public int CantPasajesEcon;
     public int CantPasajesPClase;
-    private Lista<Pasaje> pasajesVendidos;
+    public Lista<Pasaje> pasajesVendidos;
     public Cola<Cliente> colaEconomica;
     public Cola<Cliente> colaPClase;
 
@@ -36,14 +36,22 @@ public class Vuelo implements Comparable<Vuelo>{
         this.Año = Año;
         this.CantPasajesEcon = CantPasajesEcon;
         this.CantPasajesPClase = CantPasajesPClase;
-        this.pasajesVendidos = new Lista<Pasaje>();
-        this.colaEconomica = new Cola<Cliente>();
-        this.colaPClase = new Cola<Cliente>();
+        this.pasajesVendidos = new Lista<>();
+        this.colaEconomica = new Cola<>();
+        this.colaPClase = new Cola<>();
         
     }
-    public void setPasajeVendido(Pasaje pasaje){
-        this.pasajesVendidos.agregarInicio(pasaje);
+    
+    public Vuelo(String codigoVuelo) {
+        this.CodigoVuelo = codigoVuelo;
+        this.pasajesVendidos = new Lista<>();
+        this.colaEconomica = new Cola<>();
+        this.colaPClase = new Cola<>();
     }
+    
+//    public void setPasajeVendido(Pasaje pasaje){
+//        this.pasajesVendidos.agregarFinal(pasaje);
+//    }
     
     public void agregarAListaDeEsperaEcon(Cliente cliente){
         this.colaEconomica.encolar(cliente);
@@ -60,9 +68,6 @@ public class Vuelo implements Comparable<Vuelo>{
         return this.colaPClase.desencolar();
     }
  
-    public Vuelo(String codigoVuelo) {
-        this.CodigoVuelo = codigoVuelo;
-    }
     
     public String getCodVuelo() {
         return this.CodigoVuelo;
@@ -83,14 +88,18 @@ public class Vuelo implements Comparable<Vuelo>{
     public Lista<Pasaje> getPasajesVendidos() {
         return this.pasajesVendidos;
     }
-     
     
-    //mejorar fecha
+    @Override
+    public boolean equals(Object obj) {
+        return this.getCodVuelo().equals(((Vuelo) obj).getCodVuelo());
+    }
 
     @Override
     public int compareTo(Vuelo o) {
-        return this.getCodVuelo().compareTo(o.getCodVuelo()); // Comparar los códigos normalmente
+        return this.getCodVuelo().compareTo(o.getCodVuelo());
     }
+   
+
     
     public boolean mismaFecha(int dia, int mes, int año) {
         return this.Dia == dia && this.Mes == mes && this.Año == año;

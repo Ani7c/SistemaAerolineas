@@ -165,28 +165,22 @@ public class Sistema implements IObligatorio {
 
     @Override
     public Retorno crearVuelo(String codigoVuelo, String aerolinea, String codAvion, String paisDestino, int dia, int mes, int año, int cantPasajesEcon, int cantPasajesPClase) {
-//Descripción: Se crea el vuelo en el sistema. Todos los vuelos salen en un único horario (no será necesario verificar la correctitud
-//de la fecha ingresada). Se deberá indicar cuantos pasajes de categoría económica (tipo 1) y cuantos de primera clase (tipo 2) se
-//ponen a la venta. Las cantidades de cada categoría de pasaje debe ser >=3 y múltiplo de 3. En caso de que la suma de la cantidad
-//de pasajes de ambas categorías no cubra el total de pasajes disponibles, se completará el vuelo con pasajes de categoría
-//económica hasta cubrir el total de capacidad del avión.
-//Retornos posibles
-
-        //ERROR 1.
         Vuelo nuevoVuelo = new Vuelo(codigoVuelo);
+        Aerolinea aerolineaBuscada = new Aerolinea(aerolinea);
+        aerolineaBuscada = listaAerolineas.obtenerElemento(aerolineaBuscada);
         if (listaVuelos.existeElemento(nuevoVuelo)) {
         //1. -En caso de que ya exista el código de vuelo en el sistema
             return Retorno.error1();
-        } else if (!listaAerolineas.existeElemento(new Aerolinea(aerolinea))) {
+        } else if (aerolineaBuscada == null) {
         //2. - En caso de que la aerolínea no exista en el sistema.
             return Retorno.error2();
         } else {
-            Aerolinea aerolineaBuscada = listaAerolineas.obtenerElemento(new Aerolinea(aerolinea));
+ 
             if (!aerolineaBuscada.getAviones().existeElemento(new Avion(codAvion))) {
-        //3.- En caso de que el código de avión no exista dentro de la aerolínea.
+            //3.- En caso de que el código de avión no exista dentro de la aerolínea.
                 return Retorno.error3();
             } else {
-        //4 - En caso de que ya exista un vuelo creado para ese avión en dicha fecha.
+            //4 - En caso de que ya exista un vuelo creado para ese avión en dicha fecha.
                 Nodo<Vuelo> actual = listaVuelos.getInicio();
                 while (actual != null) {
                     Vuelo vuelo = actual.getDato();
@@ -212,8 +206,10 @@ public class Sistema implements IObligatorio {
             nuevoVuelo.setFecha(dia, mes, año);
             nuevoVuelo.setCantPasajesEcon(cantPasajesEcon);
             nuevoVuelo.setCantPasajesPClase(cantPasajesPClase);
+            
+            aBuscado.setListaVuelos(nuevoVuelo);
         }
-
+        
         listaVuelos.agregarFinal(nuevoVuelo);
 
         return Retorno.ok();
@@ -222,12 +218,7 @@ public class Sistema implements IObligatorio {
 
     @Override
     public Retorno comprarPasaje(String pasaporteCliente, String codigoVuelo, int categoríaPasaje) {
-//Descripción: En caso de existir disponibilidad para dicha categoría (1-económica, 2-Primera Clase), se emite el pasaje para dicho
-//cliente. En caso de no existir disponibilidad para la categoría seleccionada, la emisión del pasaje quedará en estado pendiente a
-//la espera de una posible devolución de un cliente para la categoría buscada. En dicho caso se respetará el orden de la lista de
-//espera para el otorgamiento de pasajes devueltos.
-//Retornos posibles
-//OK Si se pudo emitir el pasaje
+
 //1.- En caso de que el pasaporte del cliente no exista
         Cliente cliBuscado = new Cliente(pasaporteCliente);
         cliBuscado = listaClientes.obtenerElemento(cliBuscado);
@@ -245,7 +236,7 @@ public class Sistema implements IObligatorio {
             Pasaje pasajeNuevo = new Pasaje(pasaporteCliente, codigoVuelo, categoríaPasaje);
             listaPasajes.agregarFinal(pasajeNuevo);
             cliBuscado.setPasajesCliente(pasajeNuevo);
-            vueloBuscado.setPasajeVendido(pasajeNuevo);
+            vueloBuscado.pasajesVendidos.agregarInicio(pasajeNuevo);
             if (categoríaPasaje == 1) {
                 vueloBuscado.CantPasajesEcon--;
             } else if (categoríaPasaje == 2) {
@@ -259,7 +250,7 @@ public class Sistema implements IObligatorio {
             }
         }
 
-//2.- En caso de que el código de vuelo no exista
+        //2.- En caso de que el código de vuelo no exista
         return Retorno.ok();
     }
 
@@ -291,7 +282,7 @@ public class Sistema implements IObligatorio {
                         nuevoCliente = vueloBuscado.eliminarDeListaDeEsperaEcon();
                         Pasaje pasajeNuevo = new Pasaje(nuevoCliente.getPasaporte(), codigoVuelo, categoria);               
                         nuevoCliente.setPasajesCliente(pasajeNuevo);
-                        vueloBuscado.setPasajeVendido(pasajeNuevo);
+                        vueloBuscado.pasajesVendidos.agregarFinal(pasajeNuevo);
                     }                 
                 } else if (vueloBuscado.colaPClase.isEmpty()){
                     vueloBuscado.CantPasajesPClase++;
@@ -299,7 +290,7 @@ public class Sistema implements IObligatorio {
                     nuevoCliente = vueloBuscado.eliminarDeListaDeEsperaPClase();
                     Pasaje pasajeNuevo = new Pasaje(nuevoCliente.getPasaporte(), codigoVuelo, categoria);               
                     nuevoCliente.setPasajesCliente(pasajeNuevo);
-                    vueloBuscado.setPasajeVendido(pasajeNuevo);
+                    vueloBuscado.pasajesVendidos.agregarFinal(pasajeNuevo);
                 } 
                               
                 return Retorno.ok();
