@@ -338,8 +338,38 @@ public class Sistema implements IObligatorio {
 
     @Override
     public Retorno listarClientes() {
-        return Retorno.noImplementada();
+
+        Retorno ret = new Retorno(Retorno.Resultado.OK);
+        
+        // Verificar si la lista de clientes está vacía
+        if (listaClientes.esVacia()) {
+            ret.valorString = "No hay clientes registrados.";
+        } else {
+            // Iniciar la llamada recursiva
+            ret.valorString = listarClientesRecursivo(listaClientes.getInicio());
+        }
+
+        return ret;
     }
+
+    // Método recursivo para listar clientes
+    private String listarClientesRecursivo(Nodo<Cliente> nodo) {
+        if (nodo == null) {
+            return ""; // Base de la recursión: si llegamos al final de la lista
+        }
+        
+        // Llamada recursiva para el siguiente nodo
+        String resultado = listarClientesRecursivo(nodo.getSiguiente());
+
+        // Construir el string con el cliente actual primero
+        if (resultado.isEmpty()) {
+            return nodo.getDato().toString(); // Cuando es el último cliente (primer en ser registrado)
+        } else {
+            return nodo.getDato().toString() + "\n" + resultado; // Agregar el cliente al inicio del resultado
+        }
+    }
+
+    
 
     @Override
     public Retorno listarVuelos() {
