@@ -739,36 +739,42 @@ public class ITest {
         ret = miSistema.registrarCliente("P001234", "Carlos", 30);
         assertEquals(Retorno.ok().resultado, ret.resultado);
         
-        ret = miSistema.registrarCliente("123HJK", "Ana", 30);
+        ret = miSistema.registrarCliente("123GHJK", "Ana", 30);
+        assertEquals(Retorno.ok().resultado, ret.resultado);
+        
+        ret = miSistema.registrarCliente("436GT5T", "Belen", 30);
+        assertEquals(Retorno.ok().resultado, ret.resultado);
+        
+        ret = miSistema.registrarCliente("F5368GY", "Maria", 30);
         assertEquals(Retorno.ok().resultado, ret.resultado);
         
         // Simulación de compra de pasajes
         ret = miSistema.comprarPasaje("P001234", "123HJK", 1);
         assertEquals(Retorno.ok().resultado, ret.resultado);
 
-//        ret = miSistema.comprarPasaje("P002345", "123HJK", 2);
-//        assertEquals(Retorno.ok().resultado, ret.resultado);
-//
-//        ret = miSistema.comprarPasaje("P003456", "123HJK", 3);
-//        assertEquals(Retorno.ok().resultado, ret.resultado);
-//
-//        ret = miSistema.comprarPasaje("P004567", "123HJK", 4);
-//        assertEquals(Retorno.ok().resultado, ret.resultado);
-//
-//        // Vista de distribución de vuelo con pasajes vendidos
-//        ret = miSistema.vistaDeVuelo("123HJK");
-//        assertEquals(Retorno.ok().resultado, ret.resultado);
-//        assertEquals("**********************************\n"
-//                + "* PRIMERA *\n"
-//                + "**********************************\n"
-//                + "* P001234 * P002345 * P003456 *\n"
-//                + "**********************************\n"
-//                + "* P004567 * XXXXXXXX * XXXXXXXX *\n"
-//                + "**********************************\n"
-//                + "* ECONÓMICA *\n"
-//                + "**********************************\n"
-//                + "* XXXXXXXX * XXXXXXXX * XXXXXXXX *\n"
-//                + "**********************************", ret.valorString);
+        ret = miSistema.comprarPasaje("436GT5T", "123HJK", 2);
+        assertEquals(Retorno.ok().resultado, ret.resultado);
+
+        ret = miSistema.comprarPasaje("123GHJK", "123HJK", 2);
+        assertEquals(Retorno.ok().resultado, ret.resultado);
+
+        ret = miSistema.comprarPasaje("F5368GY", "123HJK", 1);
+        assertEquals(Retorno.ok().resultado, ret.resultado);
+
+        // Vista de distribución de vuelo con pasajes vendidos
+        ret = miSistema.vistaDeVuelo("123HJK");
+        assertEquals(Retorno.ok().resultado, ret.resultado);
+        assertEquals("**********************************\n"
+                + "* PRIMERA *\n"
+                + "**********************************\n"
+                + "* P001234 * P002345 * P003456 *\n"
+                + "**********************************\n"
+                + "* P004567 * XXXXXXXX * XXXXXXXX *\n"
+                + "**********************************\n"
+                + "* ECONÓMICA *\n"
+                + "**********************************\n"
+                + "* XXXXXXXX * XXXXXXXX * XXXXXXXX *\n"
+                + "**********************************", ret.valorString);
     }
 
 }

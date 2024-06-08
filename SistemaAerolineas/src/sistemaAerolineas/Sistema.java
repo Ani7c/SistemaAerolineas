@@ -232,16 +232,14 @@ public class Sistema implements IObligatorio {
             return Retorno.error2();
         }
 
-        if ((categoríaPasaje == 1 && vueloBuscado.CantPasajesEconDisponibles > 0) || (categoríaPasaje == 2 && vueloBuscado.CantPasajesPrimeraDisponibles > 0)) {
+        if ((categoríaPasaje == 1 && (vueloBuscado.CantPasajesEcon - vueloBuscado.CantPasajesEconVendidos) > 0) || (categoríaPasaje == 2 && (vueloBuscado.CantPasajesPrimera - vueloBuscado.CantPasajesPClaseVendidos) > 0)) {
             Pasaje pasajeNuevo = new Pasaje(pasaporteCliente, codigoVuelo, categoríaPasaje);
             listaPasajes.agregarFinal(pasajeNuevo);
             cliBuscado.setPasajesCliente(pasajeNuevo);
             vueloBuscado.pasajesVendidos.agregarInicio(pasajeNuevo);
             if (categoríaPasaje == 1) {
-                vueloBuscado.CantPasajesEconDisponibles--;
                 vueloBuscado.CantPasajesEconVendidos++;
             } else if (categoríaPasaje == 2) {
-                vueloBuscado.CantPasajesPrimeraDisponibles--;
                 vueloBuscado.CantPasajesPClaseVendidos++;
             }
         } else {
@@ -276,11 +274,11 @@ public class Sistema implements IObligatorio {
                 pasaje.setEstado("DEV");
                 vueloBuscado.getAerolinea().pasajesDevueltos.agregarFinal(pasaje);
                 int categoria = pasaje.getCategoria();
-
+                vueloBuscado.pasajesVendidos.eliminarElemento(pasaje);
                 Cliente nuevoCliente;
                 if (categoria == 1) {
                     if (vueloBuscado.colaEconomica.isEmpty()) {
-                        vueloBuscado.CantPasajesEconDisponibles++;
+                        vueloBuscado.CantPasajesEconVendidos--;
                     } else {
                         nuevoCliente = vueloBuscado.eliminarDeListaDeEsperaEcon();
                         Pasaje pasajeNuevo = new Pasaje(nuevoCliente.getPasaporte(), codigoVuelo, categoria);
@@ -288,7 +286,7 @@ public class Sistema implements IObligatorio {
                         vueloBuscado.pasajesVendidos.agregarFinal(pasajeNuevo);
                     }
                 } else if (vueloBuscado.colaPClase.isEmpty()) {
-                    vueloBuscado.CantPasajesPrimeraDisponibles++;
+                    vueloBuscado.CantPasajesPClaseVendidos--;
                 } else {
                     nuevoCliente = vueloBuscado.eliminarDeListaDeEsperaPClase();
                     Pasaje pasajeNuevo = new Pasaje(nuevoCliente.getPasaporte(), codigoVuelo, categoria);
@@ -472,32 +470,57 @@ public class Sistema implements IObligatorio {
         reporte.append("**********************************\n");
 
         // Filas de asientos de primera clase
-        int asientosPrimeraClase = vuelo.CantPasajesPClaseVendidos + vuelo.CantPasajesPrimeraDisponibles;
-        int asientosEconomicos = vuelo.CantPasajesEconDisponibles + vuelo.CantPasajesEconVendidos;
-
         int asientosPorFila = 3;
-        int filasPrimeraClase = asientosPrimeraClase / asientosPorFila;
-        int filasEconomicas = asientosEconomicos / asientosPorFila;
+        int filasPrimeraClase = vuelo.CantPasajesPrimera / asientosPorFila;
 
-        // Generar filas de asientos de primera clase
+        // Iterar sobre los pasajes vendidos en primera clase
+        Nodo<Pasaje> nodoPasaje = vuelo.getPasajesVendidos().getInicio();
+        
+        
         for (int i = 0; i < filasPrimeraClase; i++) {
             for (int j = 0; j < asientosPorFila; j++) {
-                reporte.append("* XXXXXXXX ");
+                if (nodoPasaje != null && nodoPasaje.getDato().getCategoria() == 2) {
+                    // Obtener el pasaporte del pasajero desde el nodo actual
+                    String pasaporte = nodoPasaje.getDato().getPasaporte();
+                    // Avanzar al siguiente nodo
+                    nodoPasaje = nodoPasaje.getSiguiente();
+                    // Agregar el pasaporte del pasajero al reporte
+                    reporte.append("* ").append(pasaporte).append(" ");
+                } else {
+                    // Rellenar con XXXXXXXX si no hay pasajero asignado al asiento
+                    reporte.append("* XXXXXXXX ");
+                }
             }
             reporte.append("*\n");
+            // Agregar una línea de separación entre filas de pasajeros
+            reporte.append("**********************************\n");
         }
 
         // Encabezado para categoría económica
-        reporte.append("**********************************\n");
         reporte.append("* ECONÓMICA *\n");
         reporte.append("**********************************\n");
 
-        // Generar filas de asientos económicos
+        // Filas de asientos económicos
+        int filasEconomicas = vuelo.CantPasajesEcon / asientosPorFila;
+
+        // Iterar sobre los pasajes vendidos en económica
         for (int i = 0; i < filasEconomicas; i++) {
             for (int j = 0; j < asientosPorFila; j++) {
-                reporte.append("* XXXXXXXX ");
+                if (nodoPasaje != null && nodoPasaje.getDato().getCategoria() == 1) {
+                    // Obtener el pasaporte del pasajero desde el nodo actual
+                    String pasaporte = nodoPasaje.getDato().getPasaporte();
+                    // Avanzar al siguiente nodo
+                    nodoPasaje = nodoPasaje.getSiguiente();
+                    // Agregar el pasaporte del pasajero al reporte
+                    reporte.append("* ").append(pasaporte).append(" ");
+                } else {
+                    // Rellenar con XXXXXXXX si no hay pasajero asignado al asiento
+                    reporte.append("* XXXXXXXX ");
+                }
             }
             reporte.append("*\n");
+            // Agregar una línea de separación entre filas de pasajeros
+            reporte.append("**********************************\n");
         }
 
         return Retorno.ok(reporte.toString());
