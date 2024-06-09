@@ -11,14 +11,12 @@ import tads.Nodo;
 public class Sistema implements IObligatorio {
 
     private Lista<Aerolinea> listaAerolineas;
-    private Lista<Avion> listaAviones;
     private Lista<Cliente> listaClientes;
     private Lista<Vuelo> listaVuelos;
 
     @Override
     public Retorno crearSistemaDeGestion() {
         listaAerolineas = new Lista<>();
-        listaAviones = new Lista<>();
         listaClientes = new Lista<>();
         listaVuelos = new Lista<>();
         return Retorno.ok();
@@ -73,7 +71,6 @@ public class Sistema implements IObligatorio {
                 return Retorno.error1();
             }
             aerolinea.setAviones(avion);
-            listaAviones.agregarInicio(avion);
 
             return Retorno.ok();
         }
@@ -96,7 +93,6 @@ public class Sistema implements IObligatorio {
             Lista listaVuelosDeAvion = avion.getListaVuelos();
             if (listaVuelosDeAvion.esVacia()) {
                 aerolineaBuscada.getAviones().eliminarElemento(avion);
-                listaAviones.eliminarElemento(avion);
                 return Retorno.ok();
             }
             Nodo<Vuelo> vueloNodo = listaVuelosDeAvion.getInicio();
@@ -109,7 +105,6 @@ public class Sistema implements IObligatorio {
             }
         }
         aerolineaBuscada.getAviones().eliminarElemento(avion);
-        listaAviones.eliminarElemento(avion);
         return Retorno.ok();
     }
 
@@ -167,7 +162,7 @@ public class Sistema implements IObligatorio {
                 return Retorno.error5();
             }
             //6 - En caso de que la suma de los pasajes de ambas categorías supere la cant. máxima permitida por el avión.
-            Avion aBuscado = listaAviones.obtenerElemento(new Avion(codAvion));
+            Avion aBuscado = aerolineaBuscada.getAviones().obtenerElemento(new Avion(codAvion));
             if ((cantPasajesEcon + cantPasajesPClase) > aBuscado.getCapacidadMax()) {
                 return Retorno.error6();
             }
