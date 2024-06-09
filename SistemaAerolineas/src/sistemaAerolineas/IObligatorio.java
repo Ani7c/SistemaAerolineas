@@ -10,34 +10,36 @@ public interface IObligatorio {
     //pre:      
     //post: Se crea la estructura necesaria para representar el sistema de gestión. Devuelve OK si el sistema se inicializó correctamente, o ERROR si la función aún no se ha implementado.
     public Retorno crearSistemaDeGestion();;
+    
     //pre:  La cantidad de Aviones debe ser > 0
     //pre:  El nombre de la aerolinea debe ser unico
     //post: Se registra una aerolínea especificando la cantidad máxima de aviones que puede gestionar.
     public Retorno crearAerolinea(String nombre, String pais, int cantMaxAviones); 
+    
     //pre:  Se debe ingresar un nombre de una Aerolinea existente   
-    //post: Si el nombre de la aerolinea pasado por parametro no existe en el sistema, retorna Error1. 
-    //      Si tiene aviones asignados retorna Error2.
-    //      Si pudo eliminar la aerolinea exitosamente retorna ok y se elimina dicha aerolinea del sistema.
-    public  Retorno eliminarAerolinea(String nombre);; 
+    //post: //Si todo esta correcto se elimina dicha aerolinea del sistema.
+    public  Retorno eliminarAerolinea(String nombre);
+    
     //pre:  La capacidad máxima debe ser > 9 y multiplo de 3
             //no debe haber un avion con el mismo codigo en esa aerolinea
     //post: Se registra un Avion
-    public Retorno registrarAvion(String codigo, int capacidadMax, String nomAerolinea);; 
+    public Retorno registrarAvion(String codigo, int capacidadMax, String nomAerolinea);
+    
     //pre:  Se debe ingresar una aerolinea existente y un código de avion que exista dentro de la misma   
     //post: Se elimina el avion
     public Retorno eliminarAvion(String nomAerolinea, String codAvion); 
-    //pre:  La edad debe ser > 0, se debe ingresar un pasaporte == 7 caracteres    
-    //post: Se registra el cliente
+    
+    //pre:  La edad debe ser > 0, el pasaporte debe tener 7 caracteres    
+    //post: Se registra el cliente 
     public Retorno registrarCliente(String pasaporte, String nombre, int edad);
-    //pre:      
-    //post:
     
       /*
     **************** GESTIÓN DE VUELOS Y PASAJES **************************************
     */
     
     //pre:  Existe una Aerolinea con el nombre ingresado, y un avion con el código ingresado dentro de la misma.
-        //No existe otro vuelo para ese avion en la fecha ingresada
+            //No existe otro vuelo para ese avion en la fecha ingresada
+            //La fecha ingresada es válida
     //post: Se crea el vuelo en el sistema
     public Retorno crearVuelo(String codigoVuelo, String aerolinea, String codAvion, String paisDestino, int dia, int mes, int año, int cantPasajesEcon, int cantPasajesPClase);
     //pre: Existe disponibilidad para dicha categoria, se ingresa un pasaporte y un codigo de vuelo existentes   
@@ -67,7 +69,4 @@ public interface IObligatorio {
     public Retorno pasajesDevueltos(String nombreAerolinea);
     //pre:      post: Se muestra la distribucion de pasajeros en el avion, según las diferentes categorías de pasajes ofrecidos y vendidos.
     public Retorno vistaDeVuelo(String codigoVuelo);
-    
-    
-    
 }

@@ -56,8 +56,8 @@ public class Vuelo implements Comparable<Vuelo> {
 //    }
      @Override
     public String toString() {
-        return "Código de vuelo: " + CodigoVuelo + ", Aerolínea: " + Aerolinea.getNombre() + ", Código de Avión: " + Avion.getCodigo() +
-               ", Economica vendidos: " + CantPasajesEconVendidos + ", Primera clase vendidos: " + CantPasajesPClaseVendidos + ", pasajes disponibles: " + (CantPasajesEcon-CantPasajesEconVendidos+CantPasajesPrimera-CantPasajesPClaseVendidos);
+        return CodigoVuelo + "-" + Aerolinea.getNombre() + "-" + Avion.getCodigo() +
+               "-" + CantPasajesEconVendidos + "-" + CantPasajesPClaseVendidos + "-" + (CantPasajesEcon-CantPasajesEconVendidos+CantPasajesPrimera-CantPasajesPClaseVendidos);
     }
     
     public void agregarAListaDeEsperaEcon(Cliente cliente){

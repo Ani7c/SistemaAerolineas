@@ -33,11 +33,15 @@ public class Cliente implements Comparable<Cliente> {
     
     @Override
     public String toString() {
-        return Nombre + '-' + Pasaporte + '-' + Edad + '|';
+        return Pasaporte + '-' +  Nombre + '-' + Edad + '|';
     }
     
     public void setPasajesCliente(Pasaje pasaje) {
         this.PasajesCliente.agregarInicio(pasaje);
+    }
+    
+    public void setPasajeDevuelto(Pasaje devuelto) {
+        this.PasajesCliente.agregarFinal(devuelto);
     }
     
     public Lista<Pasaje> getPasajes() {
@@ -77,6 +81,7 @@ public class Cliente implements Comparable<Cliente> {
     public int compareTo(Cliente o) {
         return this.getPasaporte().compareTo(o.getPasaporte()); // Comparar los códigos normalmente
     }
+
     
 
 }
